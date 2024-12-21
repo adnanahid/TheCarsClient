@@ -7,6 +7,25 @@ const AddCar = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const carModel = e.target.carModel.value;
+    const carImage = e.target.carImage.value;
+    const rentalPrice = e.target.rentalPrice.value;
+    const availability = e.target.availability.value;
+    const registrationNumber = e.target.registrationNumber.value;
+    const features = e.target.features.value;
+    const description = e.target.description.value;
+    const location = e.target.location.value;
+
+    console.log(
+      carModel,
+      carImage,
+      rentalPrice,
+      availability,
+      registrationNumber,
+      features,
+      description,
+      location
+    );
   };
 
   return (

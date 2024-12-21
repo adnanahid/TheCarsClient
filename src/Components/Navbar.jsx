@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { HiOutlineMenuAlt1 } from "react-icons/hi";
 import { NavLink } from "react-router-dom";
+import { AuthContext } from "../AuthProvider";
 const Navbar = () => {
+  const { user } = useContext(AuthContext);
   return (
     <div className="navbar bg-base-100">
       <div className="navbar-start">
@@ -19,13 +21,25 @@ const Navbar = () => {
         <a className="btn btn-ghost text-xl">The Cars</a>
       </div>
       <div className="navbar-end hidden lg:flex">
-        <div className="menu menu-horizontal px-1 space-x-5">
+        <div className="menu menu-horizontal px-1 space-x-5 lg:flex items-center">
           <NavLink>Home</NavLink>
           <NavLink>Available Cars</NavLink>
-          <NavLink to="/add-car">Add Cars</NavLink>
-          <NavLink>My Cars</NavLink>
-          <NavLink>My Booking</NavLink>
-          <NavLink to="/login">Login</NavLink>
+          {user ? (
+            <div className="space-x-5 flex items-center">
+              <NavLink to="/add-car">Add Cars</NavLink>
+              <NavLink>My Cars</NavLink>
+              <NavLink>My Booking</NavLink>
+            </div>
+          ) : (
+            <NavLink to="/login">Login</NavLink>
+          )}
+
+          <img
+            referrerPolicy="no-referrer"
+            className="w-10 h-10 rounded-full"
+            src={`${user?.photoURL}`}
+            alt={`${user?.displayName}`}
+          />
         </div>
       </div>
     </div>
