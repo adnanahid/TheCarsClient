@@ -19,13 +19,9 @@ const AddCar = () => {
         "http://localhost:5000/add-car",
         carsInfo
       );
-
       // Reset the form
       e.target.reset();
-
-      // Success handling
-      console.log("Car added successfully:", data);
-      toast.success("Car added successfully!");
+      alert("Car added successfully!");
     } catch (error) {
       console.error("Error adding car:", error);
       toast.error("Failed to add the car. Please try again.");
