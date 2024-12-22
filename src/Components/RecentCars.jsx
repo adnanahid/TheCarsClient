@@ -11,7 +11,7 @@ const RecentCars = () => {
     const fetchCars = async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:5000/available-cars?sort=date_asc$limit=3`
+          `http://localhost:5000/recent-cars`
         );
         setAvailable(data);
       } catch (error) {
