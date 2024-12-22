@@ -1,31 +1,35 @@
-import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useContext } from "react";
 import { AuthContext } from "../AuthProvider";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const AddCar = () => {
   const { user } = useContext(AuthContext); // Assumes user context has `user` info
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const carModel = e.target.carModel.value;
-    const carImage = e.target.carImage.value;
-    const rentalPrice = e.target.rentalPrice.value;
-    const availability = e.target.availability.value;
-    const registrationNumber = e.target.registrationNumber.value;
-    const features = e.target.features.value;
-    const description = e.target.description.value;
-    const location = e.target.location.value;
+    try {
+      // Extract form data
+      const formData = new FormData(e.target);
+      const carsInfo = Object.fromEntries(formData.entries());
+      carsInfo.email = user?.email; // Add email from user context
 
-    console.log(
-      carModel,
-      carImage,
-      rentalPrice,
-      availability,
-      registrationNumber,
-      features,
-      description,
-      location
-    );
+      // Send data to the backend
+      const { data } = await axios.post(
+        "http://localhost:5000/add-car",
+        carsInfo
+      );
+
+      // Reset the form
+      e.target.reset();
+
+      // Success handling
+      console.log("Car added successfully:", data);
+      toast.success("Car added successfully!");
+    } catch (error) {
+      console.error("Error adding car:", error);
+      toast.error("Failed to add the car. Please try again.");
+    }
   };
 
   return (
@@ -45,14 +49,14 @@ const AddCar = () => {
             />
           </div>
 
-          {/* car image */}
+          {/* Car Image */}
           <div className="form-control">
             <label className="label font-semibold">Car Image</label>
             <input
-              type="URL"
+              type="url"
               name="carImage"
               className="input input-bordered w-full"
-              placeholder="Enter car Image URL"
+              placeholder="Enter car image URL"
               required
             />
           </div>
@@ -127,6 +131,18 @@ const AddCar = () => {
               className="input input-bordered w-full"
               placeholder="Enter location"
               required
+            />
+          </div>
+
+          {/* User Email */}
+          <div className="form-control">
+            <label className="label font-semibold">Email</label>
+            <input
+              type="email"
+              name="email"
+              defaultValue={user?.email}
+              readOnly
+              className="input input-bordered w-full"
             />
           </div>
 
