@@ -12,21 +12,14 @@ const MyCars = () => {
   const [myCars, setMyCars] = useState([]);
   const [selectedCar, setSelectedCar] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
-  const [uploadedImages, setUploadedImages] = useState([]);
   const [sortOption, setSortOption] = useState("newest");
 
   // Fetch user's cars
   const fetchCars = async (sort = "date_asc") => {
-    try {
-      if (user?.email) {
-        const { data } = await axios.get(
-          `http://localhost:5000/my-cars/${user?.email}?sort=${sort}`
-        );
-        setMyCars(data);
-      }
-    } catch (error) {
-      toast.error("Error fetching cars.");
-    }
+    const { data } = await axios.get(
+      `http://localhost:5000/my-cars/${user?.email}?sort=${sort}`
+    );
+    setMyCars(data);
   };
 
   useEffect(() => {
@@ -66,43 +59,36 @@ const MyCars = () => {
     ));
   };
 
-  // Handle update modal
-  const handleUpdate = (car) => {
-    setSelectedCar(car);
+  const handleOpenUpdateModal = (myCar) => {
     setIsOpen(true);
+    setSelectedCar(myCar);
   };
-
-  // Handle file drop for images
-  const onDrop = (acceptedFiles) => {
-    setUploadedImages(acceptedFiles);
-  };
-
-  const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   // Handle form submission
-  const handleFormSubmit = async (e) => {
+  const handleUpdate = async (e) => {
     e.preventDefault();
-
     const formData = new FormData(e.target);
     const carsInfo = Object.fromEntries(formData.entries());
-
-    // Append uploaded images
-    uploadedImages.forEach((file) => {
-      carsInfo.append("images", file);
-    });
+    console.log(carsInfo);
 
     try {
-      await axios.put(
-        `http://localhost:5000/cars/${selectedCar._id}`,
-        carsInfo,
-        { headers: { "Content-Type": "multipart/form-data" } }
+      // Send PATCH request to update car info
+      const { data } = await axios.patch(
+        `http://localhost:5000/update-cars/${selectedCar?._id}`,
+        carsInfo
       );
+
+      // Display success message
       toast.success("Car updated successfully!");
-      setIsOpen(false);
+
+      // Refresh the list of cars
       fetchCars(sortOption);
+
+      // Close the modal
+      setIsOpen(false);
     } catch (error) {
       console.error("Error updating car:", error);
-      toast.error("Failed to update car.");
+      toast.error("Failed to update car. Please try again.");
     }
   };
 
@@ -169,7 +155,7 @@ const MyCars = () => {
                   {new Date(myCar.dateAdded).toLocaleDateString()}
                 </td>
                 <td className="text-center">
-                  <button onClick={() => handleUpdate(myCar)}>
+                  <button onClick={() => handleOpenUpdateModal(myCar)}>
                     <FaPenFancy />
                   </button>
                 </td>
@@ -186,96 +172,129 @@ const MyCars = () => {
 
       {/* Update modal */}
       {isOpen && selectedCar && (
-        <dialog open className="modal modal-bottom sm:modal-middle">
+        <dialog className="modal modal-bottom sm:modal-middle" open>
           <div className="modal-box">
-            <h3 className="font-bold text-lg">Update Car</h3>
-            <form onSubmit={handleFormSubmit}>
-              <div className="py-2">
-                <label className="block">Car Model</label>
+            <form onSubmit={handleUpdate} className="space-y-1">
+              {/* Car Model */}
+              <div className="form-control">
+                <label className="label font-semibold">Car Model</label>
                 <input
+                  type="text"
                   name="carModel"
                   defaultValue={selectedCar.carModel}
                   className="input input-bordered w-full"
+                  placeholder="Enter car model"
+                  required
                 />
               </div>
-              <div className="py-2">
-                <label className="block">Daily Rental Price</label>
+
+              {/* Car Image */}
+              <div className="form-control">
+                <label className="label font-semibold">Car Image</label>
                 <input
-                  name="rentalPrice"
+                  type="url"
+                  name="carImage"
+                  defaultValue={selectedCar.carImage}
+                  className="input input-bordered w-full"
+                  placeholder="Enter car image URL"
+                  required
+                />
+              </div>
+
+              {/* Rental Price */}
+              <div className="form-control">
+                <label className="label font-semibold">
+                  Daily Rental Price
+                </label>
+                <input
                   type="number"
+                  name="rentalPrice"
                   defaultValue={selectedCar.rentalPrice}
                   className="input input-bordered w-full"
+                  placeholder="Enter price per day"
+                  required
                 />
               </div>
-              <div className="py-2">
-                <label className="block">Availability</label>
-                <input
+
+              {/* Availability */}
+              <div className="form-control">
+                <label className="label font-semibold">Availability</label>
+                <select
                   name="availability"
                   defaultValue={selectedCar.availability}
-                  className="input input-bordered w-full"
-                />
+                  className="select select-bordered w-full"
+                  required
+                >
+                  <option value="">Select availability</option>
+                  <option value="Available">Available</option>
+                  <option value="Unavailable">Unavailable</option>
+                </select>
               </div>
-              <div className="py-2">
-                <label className="block">Vehicle Registration Number</label>
+
+              {/* Vehicle Registration Number */}
+              <div className="form-control">
+                <label className="label font-semibold">
+                  Vehicle Registration Number
+                </label>
                 <input
+                  type="text"
                   name="registrationNumber"
                   defaultValue={selectedCar.registrationNumber}
                   className="input input-bordered w-full"
+                  placeholder="Enter registration number"
+                  required
                 />
               </div>
-              <div className="py-2">
-                <label className="block">Features</label>
+
+              {/* Features */}
+              <div className="form-control">
+                <label className="label font-semibold">Features</label>
                 <input
+                  type="text"
                   name="features"
                   defaultValue={selectedCar.features}
                   className="input input-bordered w-full"
+                  placeholder="e.g., GPS, AC, etc."
                 />
               </div>
-              <div className="py-2">
-                <label className="block">Description</label>
+
+              {/* Description */}
+              <div className="form-control">
+                <label className="label font-semibold">Description</label>
                 <textarea
                   name="description"
                   defaultValue={selectedCar.description}
                   className="textarea textarea-bordered w-full"
+                  placeholder="Add a detailed description"
                 ></textarea>
               </div>
-              <div className="py-2">
-                <label className="block">Location</label>
+
+              {/* Location */}
+              <div className="form-control">
+                <label className="label font-semibold">Location</label>
                 <input
+                  type="text"
                   name="location"
                   defaultValue={selectedCar.location}
                   className="input input-bordered w-full"
+                  placeholder="Enter location"
+                  required
                 />
               </div>
-              <div className="py-2">
-                <label className="block">Upload Images</label>
-                <div
-                  {...getRootProps()}
-                  className="border-dashed border-2 p-4 rounded-md cursor-pointer"
-                >
-                  <input {...getInputProps()} />
-                  <p>Drag & drop files here, or click to select files</p>
-                </div>
-                {uploadedImages.length > 0 && (
-                  <ul className="mt-2">
-                    {uploadedImages.map((file, index) => (
-                      <li key={index}>{file.name}</li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-              <div className="modal-action">
-                <button type="submit" className="btn btn-primary">
-                  Save Changes
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setIsOpen(false)}
-                  className="btn"
-                >
-                  Cancel
-                </button>
-              </div>
+
+              {/* Submit Button */}
+              <button
+                type="submit"
+                className="btn btn-primary w-full text-white"
+              >
+                Update Information
+              </button>
+              <button
+                onClick={() => setIsOpen(false)}
+                className="w-full btn bg-green-500"
+              >
+                Close
+              </button>
             </form>
           </div>
         </dialog>

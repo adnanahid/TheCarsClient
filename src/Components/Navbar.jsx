@@ -29,7 +29,7 @@ const Navbar = () => {
       </div>
       <div className="navbar-end hidden lg:flex">
         <div className="menu menu-horizontal px-1 space-x-5 lg:flex items-center">
-          <NavLink>Home</NavLink>
+          <NavLink to="/">Home</NavLink>
           <NavLink to="available-cars">Available Cars</NavLink>
           {user ? (
             <div className="space-x-5 flex items-center">
