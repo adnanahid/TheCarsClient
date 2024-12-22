@@ -66,7 +66,7 @@ const AvailableCars = () => {
                     to={`/cars/${car._id}`}
                     className="btn btn-primary w-full hover:bg-blue-600"
                   >
-                    Book Now
+                    Details
                   </Link>
                 </div>
               </div>
