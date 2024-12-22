@@ -1,11 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Banner = () => {
   return (
     <div
       className="relative h-screen bg-cover bg-center"
       style={{
-        backgroundImage: "url('https://th.bing.com/th/id/R.59d90487372a12c9beae7269a703c3ab?rik=0kQ9hcBqA%2brnFA&pid=ImgRaw&r=0')", // Replace with your image URL
+        backgroundImage:
+          "url('https://th.bing.com/th/id/R.59d90487372a12c9beae7269a703c3ab?rik=0kQ9hcBqA%2brnFA&pid=ImgRaw&r=0')", // Replace with your image URL
       }}
     >
       <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
@@ -22,7 +24,7 @@ const Banner = () => {
               window.location.href = "/available-cars"; // Redirect to Available Cars page
             }}
           >
-            View Available Cars
+            <Link to="/available-cars">View Available Cars</Link>
           </button>
         </div>
       </div>

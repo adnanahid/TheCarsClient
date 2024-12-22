@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import Root from "./Pages/Root";
-import AuthProvider from "./AuthProvider";
+import AuthProvider from "./Provider/AuthProvider";
 import ErrorPage from "./Pages/ErrorPage";
 import Home from "./Pages/Home";
 import LoginPage from "./Pages/LoginPage";
@@ -12,6 +12,8 @@ import MyCars from "./Pages/MyCars";
 import Registration from "./Pages/Registration";
 import AvailableCars from "./Pages/AvailableCars";
 import CarDetails from "./Pages/CarDetails";
+import MyBooking from "./Pages/MyBooking";
+import PrivateRoute from "./PrivateRoute/privateRoute";
 
 const router = createBrowserRouter([
   {
@@ -31,15 +33,35 @@ const router = createBrowserRouter([
         path: "/cars/:id",
         loader: ({ params }) =>
           fetch(`http://localhost:5000/cars/${params.id}`),
-        element: <CarDetails></CarDetails>,
+        element: (
+          <PrivateRoute>
+            <CarDetails></CarDetails>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/add-car",
-        element: <AddCar></AddCar>,
+        element: (
+          <PrivateRoute>
+            <AddCar></AddCar>,
+          </PrivateRoute>
+        ),
       },
       {
         path: "/my-cars",
-        element: <MyCars></MyCars>,
+        element: (
+          <PrivateRoute>
+            <MyCars></MyCars>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/my-booking",
+        element: (
+          <PrivateRoute>
+            <MyBooking></MyBooking>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/login",

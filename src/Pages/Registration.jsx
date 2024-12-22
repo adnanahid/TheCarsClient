@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
 import toast from "react-hot-toast";
-import { AuthContext } from "../AuthProvider";
+import { AuthContext } from "../Provider/AuthProvider";
 import { useNavigate } from "react-router-dom";
 
 const Registration = () => {
-  const { setUser, userRegistration, updateUserProfile } = useContext(AuthContext);
+  const { setUser, userRegistration, updateUserProfile } =
+    useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {

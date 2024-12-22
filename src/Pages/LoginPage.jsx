@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { AuthContext } from "../AuthProvider";
+import { AuthContext } from "../Provider/AuthProvider";
 import { toast, Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 // import { toast,  } from "react-hot-toast";

@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState, useContext } from "react";
 import { useLoaderData } from "react-router-dom";
 import { format } from "date-fns";
-import { AuthContext } from "../AuthProvider";
+import { AuthContext } from "../Provider/AuthProvider";
 
 const CarDetails = () => {
   const car = useLoaderData();

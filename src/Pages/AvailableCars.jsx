@@ -2,11 +2,11 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../AuthProvider";
+import { AuthContext } from "../Provider/AuthProvider";
 
 const AvailableCars = () => {
+  const { user, loading } = useContext(AuthContext);
   const [available, setAvailable] = useState([]);
-  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchCars = async () => {
@@ -16,7 +16,6 @@ const AvailableCars = () => {
             `http://localhost:5000/available-cars`
           );
           setAvailable(data);
-          console.log("Fetched Cars:", data);
         }
       } catch (error) {
         toast.error("Error fetching cars.");
@@ -26,11 +25,11 @@ const AvailableCars = () => {
   }, [user?.email]);
 
   return (
-    <div className="max-w-screen-xl mx-auto">
+    <div className="max-w-screen-xl min-h-screen mx-auto">
       {available.length === 0 ? (
-        <p className="text-center text-gray-500 mt-6">
+        <div className="text-gray-500 min-h-screen flex items-center justify-center">
           No cars available at the moment.
-        </p>
+        </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
           {available.map((car, index) => (

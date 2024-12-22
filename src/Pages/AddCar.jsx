@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
-import { AuthContext } from "../AuthProvider";
+import { AuthContext } from "../Provider/AuthProvider";
 import axios from "axios";
 import toast from "react-hot-toast";
 
 const AddCar = () => {
   const { user } = useContext(AuthContext); // Assumes user context has `user` info
-
+  const date = new Date();
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -15,13 +15,13 @@ const AddCar = () => {
       carsInfo.email = user?.email; // Add email from user context
 
       // Send data to the backend
-      const { data } = await axios.post(
-        "http://localhost:5000/add-car",
-        carsInfo
-      );
+      const { data } = await axios.post("http://localhost:5000/add-car", {
+        ...carsInfo,
+        dateAdded: date,
+      });
       // Reset the form
       e.target.reset();
-      alert("Car added successfully!");
+      toast.success("Car added successfully!");
     } catch (error) {
       console.error("Error adding car:", error);
       toast.error("Failed to add the car. Please try again.");

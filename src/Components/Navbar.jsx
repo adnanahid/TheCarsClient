@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { HiOutlineMenuAlt1 } from "react-icons/hi";
 import { NavLink } from "react-router-dom";
-import { AuthContext } from "../AuthProvider";
+import { AuthContext } from "../Provider/AuthProvider";
 import toast from "react-hot-toast";
 const Navbar = () => {
   const { user, signOutUser } = useContext(AuthContext);
@@ -35,7 +35,7 @@ const Navbar = () => {
             <div className="space-x-5 flex items-center">
               <NavLink to="/add-car">Add Cars</NavLink>
               <NavLink to="/my-cars">My Cars</NavLink>
-              <NavLink>My Booking</NavLink>
+              <NavLink to="/my-booking">My Booking</NavLink>
               <div className="dropdown dropdown-end">
                 <div
                   tabIndex={0}
