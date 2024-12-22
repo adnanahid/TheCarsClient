@@ -1,13 +1,19 @@
 import axios from "axios";
 import React, { useState, useContext } from "react";
 import { useLoaderData } from "react-router-dom";
-import { AuthContext } from "../AuthProvider"; // Assuming the user context is in AuthProvider.js
+import { format } from "date-fns";
+import { AuthContext } from "../AuthProvider";
 
 const CarDetails = () => {
-  const car = useLoaderData(); // Access data loaded by the route's loader
-  const [isModalOpen, setIsModalOpen] = useState(false); // State to control modal visibility
-  const { user } = useContext(AuthContext); // Assuming user context is used for authentication
+  const car = useLoaderData();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { user } = useContext(AuthContext);
   const { _id, carsInfo } = car;
+  console.log({ ...carsInfo });
+
+  // Format the date as DD-MM-YYYY HH:MM
+  const today = new Date();
+  const formattedDate = format(today, "dd-MM-yyyy HH:mm");
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -19,10 +25,20 @@ const CarDetails = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:5000/add-booking", {
-        ...carsInfo,
-        buyerEmail: user.email, // Attach the buyer's email to the booking request
-      });
+      // Only send necessary data for booking
+      const bookingData = {
+        carModel: car.carModel,
+        rentalPrice: car.rentalPrice,
+        availability: car.availability,
+        location: car.location,
+        buyerEmail: user.email,
+        bookingDate: formattedDate, // Attach the booking date
+      };
+
+      const response = await axios.post(
+        "http://localhost:5000/add-booking",
+        bookingData
+      );
       alert("Booking successful!");
       closeModal(); // Close the modal after booking
     } catch (error) {
