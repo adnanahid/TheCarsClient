@@ -8,19 +8,19 @@ const AvailableCars = () => {
   const { user, loading } = useContext(AuthContext);
   const [available, setAvailable] = useState([]);
 
-  useEffect(() => {
-    const fetchCars = async () => {
-      try {
-        if (user?.email) {
-          const { data } = await axios.get(
-            `http://localhost:5000/available-cars`
-          );
-          setAvailable(data);
-        }
-      } catch (error) {
-        toast.error("Error fetching cars.");
+  const fetchCars = async () => {
+    try {
+      if (user?.email) {
+        const { data } = await axios.get(
+          `http://localhost:5000/available-cars`
+        );
+        setAvailable(data);
       }
-    };
+    } catch (error) {
+      toast.error("Error fetching cars.");
+    }
+  };
+  useEffect(() => {
     fetchCars();
   }, [user?.email]);
 
