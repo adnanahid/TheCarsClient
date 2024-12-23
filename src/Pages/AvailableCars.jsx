@@ -7,7 +7,11 @@ import { AuthContext } from "../Provider/AuthProvider";
 const AvailableCars = () => {
   const { user, loading } = useContext(AuthContext);
   const [available, setAvailable] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredCars, setFilteredCars] = useState([]);
+  const [sortOption, setSortOption] = useState("default"); // State for sorting
 
+  // Fetch cars from the server
   const fetchCars = async () => {
     try {
       if (user?.email) {
@@ -15,25 +19,80 @@ const AvailableCars = () => {
           `http://localhost:5000/available-cars`
         );
         setAvailable(data);
+        setFilteredCars(data);
       }
     } catch (error) {
       toast.error("Error fetching cars.");
     }
   };
+
+  // Handle search input changes
+  const handleSearch = (e) => {
+    const query = e.target.value.toLowerCase();
+    setSearchQuery(query);
+
+    const filtered = available.filter(
+      (car) =>
+        car.carModel.toLowerCase().includes(query) ||
+        car.brand?.toLowerCase().includes(query) ||
+        car.location.toLowerCase().includes(query)
+    );
+
+    setFilteredCars(filtered);
+  };
+
+  // Handle sorting
+  const handleSort = (e) => {
+    const option = e.target.value;
+    setSortOption(option);
+
+    const sortedCars = [...available].sort((a, b) => {
+      if (option === "price_low_high") {
+        return a.rentalPrice - b.rentalPrice;
+      } else if (option === "price_high_low") {
+        return b.rentalPrice - a.rentalPrice;
+      } else {
+        return 0; // Default order
+      }
+    });
+
+    setFilteredCars(sortedCars);
+  };
+
   useEffect(() => {
     fetchCars();
   }, [user?.email]);
 
   return (
     <div className="max-w-screen-xl min-h-screen-64px mx-auto">
-      <h1 className="text-4xl font-bold text-center mb-12">Available Cars</h1>
-      {available.length === 0 ? (
+      {/* Search and Sort Controls */}
+      <div className="mb-6 flex flex-col md:flex-row justify-between items-center gap-4">
+        <h1 className="text-4xl w-full md:w-3/12 font-bold mb-6">Available Cars</h1>
+        <input
+          type="text"
+          placeholder="Search by model, brand, or location..."
+          value={searchQuery}
+          onChange={handleSearch}
+          className="input input-bordered w-full md:w-6/12 px-4 py-2"
+        />
+        <select
+          value={sortOption}
+          onChange={handleSort}
+          className="select select-bordered w-full md:w-3/12 px-4 py-2"
+        >
+          <option value="default">Sort by Price</option>
+          <option value="price_low_high">Price (Lowest First)</option>
+          <option value="price_high_low">Price (Highest First)</option>
+        </select>
+      </div>
+
+      {filteredCars.length === 0 ? (
         <div className="text-gray-500 min-h-screen flex items-center justify-center">
-          No cars available at the moment.
+          No cars match your search.
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 ">
-          {available.map((car, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {filteredCars.map((car, index) => (
             <div
               key={index}
               className="card bg-base-100 shadow-xl mx-auto transition-transform transform hover:scale-105 w-96 md:w-[370px] lg:w-96 mb-12"

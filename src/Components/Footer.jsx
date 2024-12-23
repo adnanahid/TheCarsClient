@@ -15,11 +15,11 @@ const Footer = () => {
           <div className="mb-6 md:mb-0">
             <div className="flex items-center">
               <img
-                src="/logo.png" // Replace with your logo path
+                src="/src/assets/logoTesla.png" // Replace with your logo path
                 alt="Website Logo"
                 className="h-10 w-10 mr-3"
               />
-              <h1 className="text-2xl font-bold text-white">Your Website</h1>
+              <h1 className="text-2xl font-bold text-white">The Cars</h1>
             </div>
           </div>
 
@@ -63,7 +63,7 @@ const Footer = () => {
         {/* Copyright Information */}
         <div className="mt-8 text-center border-t border-gray-700 pt-4">
           <p className="text-sm">
-            &copy; {new Date().getFullYear()} Your Website. All rights reserved.
+            &copy; {new Date().getFullYear()} The Cars. All rights reserved.
           </p>
         </div>
       </div>

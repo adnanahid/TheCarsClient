@@ -5,6 +5,11 @@ import toast from "react-hot-toast";
 import AwesomeSlider from "react-awesome-slider";
 import withAutoplay from "react-awesome-slider/dist/autoplay";
 import "react-awesome-slider/dist/styles.css";
+import Rating from "react-rating";
+import { FaRegStar } from "react-icons/fa";
+
+<FaStar />;
+import { FaStar } from "react-icons/fa";
 
 const Testimonials = () => {
   const AutoplaySlider = withAutoplay(AwesomeSlider);
@@ -40,6 +45,7 @@ const Testimonials = () => {
       );
       toast.success("comment Posted");
       fetchComments();
+      e.target.reset();
     } catch {
       toast.error("error happened");
     }
@@ -66,7 +72,12 @@ const Testimonials = () => {
               />
               <p className="font-semibold">{comment.name}</p>
               <p className="w-8/12 mx-auto">{comment.comment}</p>
-              <p>{comment.rating}</p>
+              <Rating
+                placeholderRating={comment.rating}
+                emptySymbol={<FaRegStar />}
+                placeholderSymbol={<FaStar />}
+                fullSymbol={<FaStar />}
+              />
             </div>
           ))}
         </AutoplaySlider>

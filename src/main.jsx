@@ -43,7 +43,7 @@ const router = createBrowserRouter([
         path: "/add-car",
         element: (
           <PrivateRoute>
-            <AddCar></AddCar>,
+            <AddCar></AddCar>
           </PrivateRoute>
         ),
       },

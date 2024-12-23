@@ -23,6 +23,7 @@ const CarDetails = () => {
     try {
       // Only send necessary data for booking
       const bookingData = {
+        carId: car._id,
         carModel: car.carModel,
         carImage: car.carImage,
         rentalPrice: car.rentalPrice,

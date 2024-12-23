@@ -25,7 +25,7 @@ const RecentCars = () => {
         {available.map((car, index) => (
           <div
             key={index}
-            className="card bg-base-100 shadow-xl mx-auto transition-transform transform hover:scale-105 w-96 md:w-[370px] lg:w-96"
+            className="card bg-base-100 shadow-xl mx-auto transition-transform transform hover:scale-105 w-96 md:w-[370px] lg:w-96 mb-12"
           >
             <figure>
               <img
