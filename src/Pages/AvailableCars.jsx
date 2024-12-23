@@ -25,17 +25,18 @@ const AvailableCars = () => {
   }, [user?.email]);
 
   return (
-    <div className="max-w-screen-xl min-h-screen mx-auto">
+    <div className="max-w-screen-xl min-h-screen-64px mx-auto">
+      <h1 className="text-4xl font-bold text-center mb-12">Available Cars</h1>
       {available.length === 0 ? (
         <div className="text-gray-500 min-h-screen flex items-center justify-center">
           No cars available at the moment.
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 ">
           {available.map((car, index) => (
             <div
               key={index}
-              className="card bg-base-100 shadow-xl mx-auto transition-transform transform hover:scale-105 w-96 md:w-[370px] lg:w-96"
+              className="card bg-base-100 shadow-xl mx-auto transition-transform transform hover:scale-105 w-96 md:w-[370px] lg:w-96 mb-12"
             >
               <figure>
                 <img

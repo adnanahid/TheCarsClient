@@ -4,7 +4,6 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { FaTrashCan } from "react-icons/fa6";
 import { FaPenFancy } from "react-icons/fa";
-import { useDropzone } from "react-dropzone";
 import { Link } from "react-router-dom";
 
 const MyCars = () => {
@@ -134,6 +133,7 @@ const MyCars = () => {
               <th className="text-center">Price</th>
               <th className="text-center">Availability</th>
               <th className="text-center">Date Added</th>
+              <th className="text-center">Status</th>
               <th className="text-center">Update</th>
               <th className="text-center">Delete</th>
             </tr>
@@ -154,6 +154,7 @@ const MyCars = () => {
                 <td className="text-center">
                   {new Date(myCar.dateAdded).toLocaleDateString()}
                 </td>
+                <td className="text-center">{myCar.status}</td>
                 <td className="text-center">
                   <button onClick={() => handleOpenUpdateModal(myCar)}>
                     <FaPenFancy />

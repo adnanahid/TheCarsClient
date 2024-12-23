@@ -1,15 +1,16 @@
 import axios from "axios";
 import React, { useState, useContext } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import { AuthContext } from "../Provider/AuthProvider";
+import toast from "react-hot-toast";
 
 const CarDetails = () => {
   const car = useLoaderData();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { user } = useContext(AuthContext);
   const { _id, carsInfo } = car;
-  console.log({ ...carsInfo });
+  const navigate = useNavigate();
 
   // Format the date as DD-MM-YYYY HH:MM
   const today = new Date();
@@ -19,31 +20,33 @@ const CarDetails = () => {
   const closeModal = () => setIsModalOpen(false);
 
   const handleBooking = async () => {
-    if (!user?.email) {
-      alert("Please login to make a booking.");
-      return;
-    }
-
     try {
       // Only send necessary data for booking
       const bookingData = {
         carModel: car.carModel,
+        carImage: car.carImage,
         rentalPrice: car.rentalPrice,
         availability: car.availability,
         location: car.location,
         buyerEmail: user.email,
-        bookingDate: formattedDate, // Attach the booking date
+        bookingDate: formattedDate,
+        status: car.status,
       };
+
+      if (user?.email === car.email) {
+        return toast.error("you cant book this car");
+      }
 
       const response = await axios.post(
         "http://localhost:5000/add-booking",
         bookingData
       );
-      alert("Booking successful!");
+      toast.success("Booking successful!");
+      navigate("/my-booking");
       closeModal(); // Close the modal after booking
     } catch (error) {
       console.error("Booking failed:", error.message);
-      alert("Error making the booking. Please try again.");
+      toast.error("Error making the booking. Please try again.");
     }
   };
 

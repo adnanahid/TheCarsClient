@@ -5,16 +5,31 @@ import { useNavigate } from "react-router-dom";
 // import { toast,  } from "react-hot-toast";
 
 const LoginPage = () => {
-  const { user, setUser, loginWithGoogle } = useContext(AuthContext);
+  const { user, setUser, signInWithGoogle, signInWithEmailPass } = useContext(AuthContext);
   const navigate = useNavigate();
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-  };
 
   const handleGoogleLogin = (event) => {
     event.preventDefault();
-    loginWithGoogle()
+    signInWithGoogle()
+      .then((result) => {
+        const user = result.user;
+        setUser(user);
+        toast.success("Login Successfully!");
+        navigate("/");
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        console.log(errorMessage);
+        toast.error("error");
+      });
+  };
+
+  const handleSignIn = (e) => {
+    e.preventDefault();
+    const email = e.target.email.value
+    const password = e.target.password.value
+
+    signInWithEmailPass(email, password)
       .then((result) => {
         const user = result.user;
         setUser(user);
@@ -33,13 +48,14 @@ const LoginPage = () => {
       <div className="card w-96 bg-white shadow-xl">
         <div className="card-body">
           <h2 className="card-title text-center">Login</h2>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSignIn}>
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>
               </label>
               <input
                 type="email"
+                name="email"
                 placeholder="Enter your email"
                 className="input input-bordered w-full"
                 required
@@ -51,6 +67,7 @@ const LoginPage = () => {
               </label>
               <input
                 type="password"
+                name="password"
                 placeholder="Enter your password"
                 className="input input-bordered w-full"
                 required

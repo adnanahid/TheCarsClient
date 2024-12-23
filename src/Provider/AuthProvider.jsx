@@ -2,6 +2,7 @@ import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
   onAuthStateChanged,
+  signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
   updateProfile,
@@ -17,7 +18,7 @@ const AuthProvider = ({ children }) => {
 
   //!googleLogin
   const googleProvider = new GoogleAuthProvider();
-  const loginWithGoogle = () => {
+  const signInWithGoogle = () => {
     setLoading(true);
     return signInWithPopup(auth, googleProvider);
   };
@@ -27,6 +28,11 @@ const AuthProvider = ({ children }) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
+
+  const signInWithEmailPass = (email, password) => {
+    setLoading(true)
+    return signInWithEmailAndPassword(auth, email, password)
+  }
 
   //!Update User Profile
   const updateUserProfile = (updateData) => {
@@ -51,8 +57,9 @@ const AuthProvider = ({ children }) => {
   const authInfo = {
     user,
     setUser,
-    loginWithGoogle,
+    signInWithGoogle,
     userRegistration,
+    signInWithEmailPass,
     signOutUser,
     updateUserProfile,
   };

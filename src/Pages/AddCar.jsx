@@ -18,6 +18,7 @@ const AddCar = () => {
       const { data } = await axios.post("http://localhost:5000/add-car", {
         ...carsInfo,
         dateAdded: date,
+        status: "pending",
       });
       // Reset the form
       e.target.reset();
@@ -29,8 +30,8 @@ const AddCar = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 py-10 px-6">
-      <div className="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-md">
+    <div className="min-h-scree py-10 px-6">
+      <div className="max-w-3xl mx-auto p-8 rounded-lg shadow-md">
         <h2 className="text-2xl font-bold mb-6 text-center">Add New Car</h2>
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Car Model */}
