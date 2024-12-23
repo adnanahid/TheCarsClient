@@ -16,7 +16,8 @@ const AvailableCars = () => {
     try {
       if (user?.email) {
         const { data } = await axios.get(
-          `http://localhost:5000/available-cars`
+          `http://localhost:5000/available-cars`,
+          { withCredentials: true }
         );
         setAvailable(data);
         setFilteredCars(data);
@@ -67,7 +68,9 @@ const AvailableCars = () => {
     <div className="max-w-screen-xl min-h-screen-64px mx-auto">
       {/* Search and Sort Controls */}
       <div className="mb-6 flex flex-col md:flex-row justify-between items-center gap-4">
-        <h1 className="text-4xl w-full md:w-3/12 font-bold mb-6">Available Cars</h1>
+        <h1 className="text-4xl w-full md:w-3/12 font-bold mb-6">
+          Available Cars
+        </h1>
         <input
           type="text"
           placeholder="Search by model, brand, or location..."

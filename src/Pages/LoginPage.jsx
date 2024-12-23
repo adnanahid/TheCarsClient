@@ -2,10 +2,12 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import { toast, Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 // import { toast,  } from "react-hot-toast";
 
 const LoginPage = () => {
-  const { user, setUser, signInWithGoogle, signInWithEmailPass } = useContext(AuthContext);
+  const { user, setUser, signInWithGoogle, signInWithEmailPass } =
+    useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleGoogleLogin = (event) => {
@@ -13,6 +15,15 @@ const LoginPage = () => {
     signInWithGoogle()
       .then((result) => {
         const user = result.user;
+        axios
+          .post(
+            "http://localhost:5000/jwt",
+            { email: user?.email },
+            { withCredentials: true }
+          )
+          .then((data) => {
+            console.log(res.data);
+          });
         setUser(user);
         toast.success("Login Successfully!");
         navigate("/");
@@ -26,8 +37,8 @@ const LoginPage = () => {
 
   const handleSignIn = (e) => {
     e.preventDefault();
-    const email = e.target.email.value
-    const password = e.target.password.value
+    const email = e.target.email.value;
+    const password = e.target.password.value;
 
     signInWithEmailPass(email, password)
       .then((result) => {

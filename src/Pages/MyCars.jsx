@@ -16,7 +16,8 @@ const MyCars = () => {
   // Fetch user's cars
   const fetchCars = async (sort = "date_asc") => {
     const { data } = await axios.get(
-      `http://localhost:5000/my-cars/${user?.email}?sort=${sort}`
+      `http://localhost:5000/my-cars/${user?.email}?sort=${sort}`,
+      { withCredentials: true }
     );
     setMyCars(data);
   };
