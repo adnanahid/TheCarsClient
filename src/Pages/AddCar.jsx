@@ -19,6 +19,7 @@ const AddCar = () => {
         ...carsInfo,
         dateAdded: date,
         status: "pending",
+        RentRequest: 0,
       });
       // Reset the form
       e.target.reset();

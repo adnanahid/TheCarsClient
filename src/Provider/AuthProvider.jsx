@@ -9,6 +9,7 @@ import {
 } from "firebase/auth";
 import React, { createContext, useEffect, useState } from "react";
 import auth from "../firebase";
+import axios from "axios";
 
 export const AuthContext = createContext();
 
@@ -30,9 +31,9 @@ const AuthProvider = ({ children }) => {
   };
 
   const signInWithEmailPass = (email, password) => {
-    setLoading(true)
-    return signInWithEmailAndPassword(auth, email, password)
-  }
+    setLoading(true);
+    return signInWithEmailAndPassword(auth, email, password);
+  };
 
   //!Update User Profile
   const updateUserProfile = (updateData) => {
@@ -46,13 +47,35 @@ const AuthProvider = ({ children }) => {
 
   // Monitor auth state changes
   useEffect(() => {
-    const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setLoading(false);
+    const unSubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      try {
+        if (currentUser?.email) {
+          // Generate JWT for the logged-in user
+          const response = await axios.post(
+            "http://localhost:5000/jwt",
+            { email: currentUser.email },
+            { withCredentials: true }
+          );
+          console.log("JWT generated:", response.data);
+        } else {
+          // Clear JWT and log the user out
+          const response = await axios.post(
+            "http://localhost:5000/logout",
+            {},
+            { withCredentials: true }
+          );
+          console.log("User logged out:", response.data);
+        }
+      } catch (error) {
+        console.error("Error handling auth state change:", error);
+      } finally {
+        setUser(currentUser);
+        setLoading(false);
+      }
     });
-    return () => unSubscribe();
-  }, []);
 
+    return () => unSubscribe(); // Clean up subscription on component unmount
+  }, []);
 
   const authInfo = {
     user,

@@ -14,16 +14,8 @@ const LoginPage = () => {
     event.preventDefault();
     signInWithGoogle()
       .then((result) => {
-        const user = result.user;
-        axios
-          .post(
-            "http://localhost:5000/jwt",
-            { email: user?.email },
-            { withCredentials: true }
-          )
-          .then((data) => {
-            console.log(res.data);
-          });
+        
+
         setUser(user);
         toast.success("Login Successfully!");
         navigate("/");
