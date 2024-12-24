@@ -48,13 +48,13 @@ const CarDetails = () => {
       }
 
       const response = await axios.post(
-        "http://localhost:5000/add-booking",
+        "${${import.meta.env.VITE_DEFAULT_URL}}/add-booking",
         bookingData
       );
 
       toast.success("Booking successful!");
-      closeModal(); 
-      navigate("/my-booking"); 
+      closeModal();
+      navigate("/my-booking");
     } catch (error) {
       toast.error("Error making the booking. Please try again.");
     }

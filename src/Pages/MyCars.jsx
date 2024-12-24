@@ -12,11 +12,12 @@ const MyCars = () => {
   const [selectedCar, setSelectedCar] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [sortOption, setSortOption] = useState("newest");
+  const [status, setStatus] = useState("");
 
   // Fetch user's cars
   const fetchCars = async (sort = "date_asc") => {
     const { data } = await axios.get(
-      `http://localhost:5000/my-cars/${user?.email}?sort=${sort}`,
+      `${import.meta.env.VITE_DEFAULT_URL}/my-cars/${user?.email}?sort=${sort}`,
       { withCredentials: true }
     );
     setMyCars(data);
@@ -38,7 +39,9 @@ const MyCars = () => {
             className="btn bg-red-500 btn-sm text-white"
             onClick={async () => {
               try {
-                await axios.delete(`http://localhost:5000/cars/${carId}`);
+                await axios.delete(
+                  `${import.meta.env.VITE_DEFAULT_URL}/cars/${carId}`
+                );
                 toast.success("Car deleted successfully!");
                 toast.dismiss(t.id);
                 fetchCars(sortOption);
@@ -76,7 +79,7 @@ const MyCars = () => {
     try {
       // Send PATCH request to update car info
       const { data } = await axios.patch(
-        `http://localhost:5000/update-cars/${selectedCar?._id}`,
+        `${import.meta.env.VITE_DEFAULT_URL}/update-cars/${selectedCar?._id}`,
         carsInfo
       );
 
@@ -135,6 +138,7 @@ const MyCars = () => {
               <th className="text-center">Model</th>
               <th className="text-center">Price/d</th>
               <th className="text-center">Availability</th>
+              <th className="text-center">RentRequest</th>
               <th className="text-center">Date Added</th>
               <th className="text-center">Status</th>
               <th className="text-center">Update</th>
@@ -154,6 +158,7 @@ const MyCars = () => {
                 <td className="text-center">{myCar.carModel}</td>
                 <td className="text-center">{myCar.rentalPrice}</td>
                 <td className="text-center">{myCar.availability}</td>
+                <td className="text-center">{myCar.RentRequest}</td>
                 <td className="text-center">
                   {new Date(myCar.dateAdded).toLocaleDateString()}
                 </td>

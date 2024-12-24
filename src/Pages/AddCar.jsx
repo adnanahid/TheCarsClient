@@ -15,12 +15,15 @@ const AddCar = () => {
       carsInfo.email = user?.email; // Add email from user context
 
       // Send data to the backend
-      const { data } = await axios.post("http://localhost:5000/add-car", {
-        ...carsInfo,
-        dateAdded: date,
-        status: "pending",
-        RentRequest: 0,
-      });
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_DEFAULT_URL}/add-car`,
+        {
+          ...carsInfo,
+          dateAdded: date,
+          status: "pending",
+          RentRequest: 0,
+        }
+      );
       // Reset the form
       e.target.reset();
       toast.success("Car added successfully!");

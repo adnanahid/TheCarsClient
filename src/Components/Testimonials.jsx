@@ -19,7 +19,9 @@ const Testimonials = () => {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const { data } = await axios.get(`http://localhost:5000/get-comments`);
+        const { data } = await axios.get(
+          `${import.meta.env.VITE_DEFAULT_URL}/get-comments`
+        );
         setUserComments(data);
       } catch (error) {
         toast.error("Error fetching cars.");
@@ -40,7 +42,7 @@ const Testimonials = () => {
     };
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/add-comment",
+        "${${import.meta.env.VITE_DEFAULT_URL}}/add-comment",
         commentsInfo
       );
       toast.success("comment Posted");

@@ -3,6 +3,8 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
+import { HiQrCode } from "react-icons/hi2";
+import { MagnifyingGlass } from "react-loader-spinner";
 
 const AvailableCars = () => {
   const { user, loading } = useContext(AuthContext);
@@ -15,14 +17,14 @@ const AvailableCars = () => {
   // Fetch cars from the server
   const fetchCars = async () => {
     try {
-      if (user?.email) {
-        const { data } = await axios.get(
-          `http://localhost:5000/available-cars`,
-          { withCredentials: true }
-        );
-        setAvailable(data);
-        setFilteredCars(data);
-      }
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_DEFAULT_URL}/available-cars`,
+        {
+          withCredentials: true,
+        }
+      );
+      setAvailable(data);
+      setFilteredCars(data);
     } catch (error) {
       toast.error("Error fetching cars.");
     }
@@ -63,7 +65,24 @@ const AvailableCars = () => {
 
   useEffect(() => {
     fetchCars();
-  }, [user?.email]);
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <MagnifyingGlass
+          visible={true}
+          height="80"
+          width="80"
+          ariaLabel="magnifying-glass-loading"
+          wrapperStyle={{}}
+          wrapperClass="magnifying-glass-wrapper"
+          glassColor="#c0efff"
+          color="#e15b64"
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-screen-xl min-h-screen-64px mx-auto">
@@ -131,12 +150,18 @@ const AvailableCars = () => {
                   Status: {car.availability}
                 </p>
                 <div className="card-actions justify-center">
-                  <Link
-                    to={`/cars/${car._id}`}
-                    className="btn btn-primary w-full hover:bg-blue-600"
-                  >
-                    Details
-                  </Link>
+                  {user ? (
+                    <Link
+                      to={`/cars/${car._id}`}
+                      className="btn btn-primary w-full hover:bg-blue-600"
+                    >
+                      Details
+                    </Link>
+                  ) : (
+                    <p className="text-red-500 text-sm">
+                      Login to see more details
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
@@ -156,8 +181,12 @@ const AvailableCars = () => {
               />
               <div className="flex-1">
                 <h2 className="text-lg font-semibold">{car.carModel}</h2>
-                <p className="text-gray-700 text-sm">Price: ${car.rentalPrice}</p>
-                <p className="text-gray-700 text-sm">Location: {car.location}</p>
+                <p className="text-gray-700 text-sm">
+                  Price: ${car.rentalPrice}
+                </p>
+                <p className="text-gray-700 text-sm">
+                  Location: {car.location}
+                </p>
                 <p className="text-sm text-gray-500">
                   Registration No: {car.registrationNumber}
                 </p>

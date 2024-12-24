@@ -53,7 +53,7 @@ const AuthProvider = ({ children }) => {
         if (currentUser?.email) {
           // Generate JWT for the logged-in user
           const response = await axios.post(
-            "http://localhost:5000/jwt",
+            `${import.meta.env.VITE_DEFAULT_URL}/jwt`,
             { email: currentUser.email },
             { withCredentials: true }
           );
@@ -61,7 +61,7 @@ const AuthProvider = ({ children }) => {
         } else {
           // Clear JWT and log the user out
           const response = await axios.post(
-            "http://localhost:5000/logout",
+            `${import.meta.env.VITE_DEFAULT_URL}/logout`,
             {},
             { withCredentials: true }
           );

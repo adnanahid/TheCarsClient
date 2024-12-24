@@ -13,7 +13,7 @@ const MyBooking = () => {
   const fetchCars = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:5000/my-booked-cars/${user?.email}`,
+        `${import.meta.env.VITE_DEFAULT_URL}/my-booked-cars/${user?.email}`,
         { withCredentials: true }
       );
       setMyBooking(data);
@@ -28,7 +28,9 @@ const MyBooking = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/my-booked-car/${id}`);
+      await axios.delete(
+        `${import.meta.env.VITE_DEFAULT_URL}/my-booked-car/${id}`
+      );
       toast.success("Cancel booking successful");
       fetchCars();
     } catch (err) {
@@ -44,7 +46,7 @@ const MyBooking = () => {
     const UpdatedDate = { startDate, endDate };
     try {
       await axios.patch(
-        `http://localhost:5000/my-booked-car/${editBooking._id}`,
+        `${import.meta.env.VITE_DEFAULT_URL}/my-booked-car/${editBooking._id}`,
         UpdatedDate
       );
       toast.success("Booking updated successfully");

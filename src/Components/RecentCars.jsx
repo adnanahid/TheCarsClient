@@ -10,7 +10,9 @@ const RecentCars = () => {
   useEffect(() => {
     const fetchCars = async () => {
       try {
-        const { data } = await axios.get(`http://localhost:5000/recent-cars`);
+        const { data } = await axios.get(
+          `${import.meta.env.VITE_DEFAULT_URL}/recent-cars`
+        );
         setAvailable(data);
       } catch (error) {
         toast.error("Error fetching cars.");
@@ -20,7 +22,9 @@ const RecentCars = () => {
   }, [user?.email]);
   return (
     <div className="max-w-screen-xl mx-auto my-24">
-      <h1 className="text-4xl font-bold mb-12 text-center">Recently Added cars</h1>
+      <h1 className="text-4xl font-bold mb-12 text-center">
+        Recently Added cars
+      </h1>
       <div className="grid grid-cols-3 ">
         {available.map((car, index) => (
           <div

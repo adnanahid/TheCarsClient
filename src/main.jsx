@@ -32,7 +32,7 @@ const router = createBrowserRouter([
       {
         path: "/cars/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/cars/${params.id}`),
+          fetch(`${import.meta.env.VITE_DEFAULT_URL}/cars/${params.id}`),
         element: (
           <PrivateRoute>
             <CarDetails></CarDetails>
