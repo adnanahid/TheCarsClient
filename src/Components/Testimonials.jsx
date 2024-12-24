@@ -16,15 +16,15 @@ const Testimonials = () => {
   const { user } = useContext(AuthContext);
   const [userComments, setUserComments] = useState([]);
 
-  const fetchComments = async () => {
-    try {
-      const { data } = await axios.get(`http://localhost:5000/get-comments`);
-      setUserComments(data);
-    } catch (error) {
-      toast.error("Error fetching cars.");
-    }
-  };
   useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const { data } = await axios.get(`http://localhost:5000/get-comments`);
+        setUserComments(data);
+      } catch (error) {
+        toast.error("Error fetching cars.");
+      }
+    };
     fetchComments();
   }, [user?.email]);
 

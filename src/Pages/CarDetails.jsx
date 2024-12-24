@@ -11,6 +11,8 @@ const CarDetails = () => {
   const { user } = useContext(AuthContext);
   const { _id, carsInfo } = car;
   const navigate = useNavigate();
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
   // Format the date as DD-MM-YYYY HH:MM
   const today = new Date();
@@ -19,7 +21,9 @@ const CarDetails = () => {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  const handleBooking = async () => {
+  const handleBooking = async (e) => {
+    e.preventDefault(); // Prevent the default form submission behavior
+
     try {
       // Only send necessary data for booking
       const bookingData = {
@@ -32,21 +36,26 @@ const CarDetails = () => {
         buyerEmail: user.email,
         bookingDate: formattedDate,
         status: car.status,
+        description: car.description,
+        features: car.features,
+        registration: car.registration,
+        startDate,
+        endDate,
       };
 
       if (user?.email === car.email) {
-        return toast.error("you cant book this car");
+        return toast.error("You can't book your own car.");
       }
 
       const response = await axios.post(
         "http://localhost:5000/add-booking",
         bookingData
       );
+
       toast.success("Booking successful!");
-      navigate("/my-booking");
-      closeModal(); // Close the modal after booking
+      closeModal(); 
+      navigate("/my-booking"); 
     } catch (error) {
-      console.error("Booking failed:", error.message);
       toast.error("Error making the booking. Please try again.");
     }
   };
@@ -90,22 +99,55 @@ const CarDetails = () => {
 
             {/* Modal */}
             {isModalOpen && (
-              <div className="modal modal-open">
-                <div className="modal-box">
+              <div className={`modal ${isModalOpen ? "modal-open" : ""}`}>
+                <form onSubmit={handleBooking} className="modal-box">
                   <h3 className="font-bold text-lg">Booking Confirmation</h3>
                   <p className="py-4">
-                    You are about to book {car.carModel} for ${car.rentalPrice}{" "}
-                    per day. Would you like to confirm your booking?
+                    You are about to book <strong>{car.carModel}</strong> for{" "}
+                    <strong>${car.rentalPrice}</strong> per day. Would you like
+                    to confirm your booking?
                   </p>
+                  <div className="py-2">
+                    <label
+                      htmlFor="start-date"
+                      className="block font-medium mb-2"
+                    >
+                      Start Date
+                    </label>
+                    <input
+                      id="start-date"
+                      required
+                      type="date"
+                      value={startDate}
+                      onChange={(e) => setStartDate(e.target.value)}
+                      className="input input-bordered w-full"
+                    />
+                  </div>
+                  <div className="py-2">
+                    <label
+                      htmlFor="end-date"
+                      className="block font-medium mb-2"
+                    >
+                      End Date
+                    </label>
+                    <input
+                      id="end-date"
+                      required
+                      type="date"
+                      value={endDate}
+                      onChange={(e) => setEndDate(e.target.value)}
+                      className="input input-bordered w-full"
+                    />
+                  </div>
                   <div className="modal-action">
                     <button className="btn" onClick={closeModal}>
                       Cancel
                     </button>
-                    <button onClick={handleBooking} className="btn btn-primary">
+                    <button type="submit" className="btn btn-primary">
                       Confirm Booking
                     </button>
                   </div>
-                </div>
+                </form>
               </div>
             )}
           </div>

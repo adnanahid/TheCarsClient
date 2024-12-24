@@ -3,20 +3,25 @@ import { AuthContext } from "../Provider/AuthProvider";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { FaTrashCan } from "react-icons/fa6";
+import { FaPenFancy } from "react-icons/fa";
 
 const MyBooking = () => {
   const { user } = useContext(AuthContext);
   const [myBooking, setMyBooking] = useState([]);
+  const [editBooking, setEditBooking] = useState(null);
+
   const fetchCars = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:5000/my-booked-cars/${user?.email}`
+        `http://localhost:5000/my-booked-cars/${user?.email}`,
+        { withCredentials: true }
       );
       setMyBooking(data);
     } catch (error) {
       toast.error("Error fetching cars.");
     }
   };
+
   useEffect(() => {
     fetchCars();
   }, [user?.email]);
@@ -32,6 +37,25 @@ const MyBooking = () => {
     }
   };
 
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    const startDate = e.target.startDate.value;
+    const endDate = e.target.endData.value;
+    const UpdatedDate = { startDate, endDate };
+    try {
+      await axios.patch(
+        `http://localhost:5000/my-booked-car/${editBooking._id}`,
+        UpdatedDate
+      );
+      toast.success("Booking updated successfully");
+      setEditBooking(null); // Close modal
+      fetchCars(); // Refresh bookings
+    } catch (err) {
+      toast.error("Failed to update booking");
+      console.log(err);
+    }
+  };
+
   return (
     <div className="max-w-screen-lg mx-auto min-h-screen">
       <div className="overflow-x-auto">
@@ -40,10 +64,11 @@ const MyBooking = () => {
             <tr>
               <th className="text-center">Image</th>
               <th className="text-center">Model</th>
-              <th className="text-center">Price</th>
+              <th className="text-center">Price/d</th>
               <th className="text-center">Date Added</th>
               <th className="text-center">status</th>
-              <th className="text-center">Delete</th>
+              <th className="text-center">Update</th>
+              <th className="text-center">Cancel Booking</th>
             </tr>
           </thead>
           <tbody>
@@ -60,6 +85,57 @@ const MyBooking = () => {
                 <td className="text-center">{myCar.rentalPrice}</td>
                 <td className="text-center">{myCar.bookingDate}</td>
                 <td className="text-center">{myCar.status}</td>
+                <td className="text-center">
+                  <button onClick={() => setEditBooking(myCar)}>
+                    <FaPenFancy />
+                  </button>
+
+                  {/* Modal for editing booking */}
+                  {editBooking && (
+                    <div className="modal modal-open">
+                      <form onSubmit={handleUpdate} className="modal-box">
+                        <h3 className="font-bold text-lg">Edit Booking</h3>
+                        <p className="py-2">
+                          Update details for
+                          <strong>{editBooking.carModel}</strong>.
+                        </p>
+                        <div className="py-2">
+                          <label className="block font-medium">
+                            Start Date
+                          </label>
+                          <input
+                            type="date"
+                            name="startDate"
+                            required
+                            className="input input-bordered w-full"
+                            defaultValue={editBooking.startDate}
+                          />
+                        </div>
+                        <div className="py-2">
+                          <label className="block font-medium">End Date</label>
+                          <input
+                            type="date"
+                            name="endData"
+                            required
+                            className="input input-bordered w-full"
+                            defaultValue={editBooking.endDate}
+                          />
+                        </div>
+                        <div className="modal-action">
+                          <button
+                            className="btn"
+                            onClick={() => setEditBooking(null)}
+                          >
+                            Cancel
+                          </button>
+                          <button type="submit" className="btn btn-primary">
+                            Save Changes
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  )}
+                </td>
                 <td className="text-center">
                   <button onClick={() => handleDelete(myCar._id)}>
                     <FaTrashCan />

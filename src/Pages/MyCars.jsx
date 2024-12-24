@@ -131,7 +131,7 @@ const MyCars = () => {
             <tr>
               <th className="text-center">Image</th>
               <th className="text-center">Model</th>
-              <th className="text-center">Price</th>
+              <th className="text-center">Price/d</th>
               <th className="text-center">Availability</th>
               <th className="text-center">Date Added</th>
               <th className="text-center">Status</th>

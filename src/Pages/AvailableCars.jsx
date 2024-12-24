@@ -9,7 +9,8 @@ const AvailableCars = () => {
   const [available, setAvailable] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredCars, setFilteredCars] = useState([]);
-  const [sortOption, setSortOption] = useState("default"); // State for sorting
+  const [sortOption, setSortOption] = useState("default");
+  const [viewMode, setViewMode] = useState("grid"); // State for view mode
 
   // Fetch cars from the server
   const fetchCars = async () => {
@@ -66,7 +67,7 @@ const AvailableCars = () => {
 
   return (
     <div className="max-w-screen-xl min-h-screen-64px mx-auto">
-      {/* Search and Sort Controls */}
+      {/* Search, Sort, and View Controls */}
       <div className="mb-6 flex flex-col md:flex-row justify-between items-center gap-4">
         <h1 className="text-4xl w-full md:w-3/12 font-bold mb-6">
           Available Cars
@@ -87,13 +88,19 @@ const AvailableCars = () => {
           <option value="price_low_high">Price (Lowest First)</option>
           <option value="price_high_low">Price (Highest First)</option>
         </select>
+        <button
+          onClick={() => setViewMode(viewMode === "grid" ? "list" : "grid")}
+          className="btn bg-blue-400"
+        >
+          {viewMode === "grid" ? "Switch to List View" : "Switch to Grid View"}
+        </button>
       </div>
 
       {filteredCars.length === 0 ? (
         <div className="text-gray-500 min-h-screen flex items-center justify-center">
           No cars match your search.
         </div>
-      ) : (
+      ) : viewMode === "grid" ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredCars.map((car, index) => (
             <div
@@ -132,6 +139,38 @@ const AvailableCars = () => {
                   </Link>
                 </div>
               </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="flex flex-col gap-4">
+          {filteredCars.map((car, index) => (
+            <div
+              key={index}
+              className="flex items-center border rounded-lg p-4 shadow-sm"
+            >
+              <img
+                src={car.carImage || "https://via.placeholder.com/150x100"}
+                alt={car.carModel || "Car Image"}
+                className="h-[100px] w-[150px] object-cover mr-4"
+              />
+              <div className="flex-1">
+                <h2 className="text-lg font-semibold">{car.carModel}</h2>
+                <p className="text-gray-700 text-sm">Price: ${car.rentalPrice}</p>
+                <p className="text-gray-700 text-sm">Location: {car.location}</p>
+                <p className="text-sm text-gray-500">
+                  Registration No: {car.registrationNumber}
+                </p>
+                <p className="text-sm text-green-600 font-semibold">
+                  Status: {car.availability}
+                </p>
+              </div>
+              <Link
+                to={`/cars/${car._id}`}
+                className="btn btn-primary ml-4 hover:bg-blue-600"
+              >
+                Details
+              </Link>
             </div>
           ))}
         </div>
