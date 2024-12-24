@@ -20,8 +20,8 @@ const AddCar = () => {
         {
           ...carsInfo,
           dateAdded: date,
-          status: "pending",
           RentRequest: 0,
+          availability: "Available",
         }
       );
       // Reset the form
@@ -72,20 +72,6 @@ const AddCar = () => {
               placeholder="Enter price per day"
               required
             />
-          </div>
-
-          {/* Availability */}
-          <div className="form-control">
-            <label className="label font-semibold">Availability</label>
-            <select
-              name="availability"
-              className="select select-bordered w-full"
-              required
-            >
-              <option value="">Select availability</option>
-              <option value="Available">Available</option>
-              <option value="Unavailable">Unavailable</option>
-            </select>
           </div>
 
           {/* Vehicle Registration Number */}

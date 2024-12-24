@@ -3,7 +3,6 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
-import { HiQrCode } from "react-icons/hi2";
 import { MagnifyingGlass } from "react-loader-spinner";
 
 const AvailableCars = () => {
@@ -12,9 +11,8 @@ const AvailableCars = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredCars, setFilteredCars] = useState([]);
   const [sortOption, setSortOption] = useState("default");
-  const [viewMode, setViewMode] = useState("grid"); // State for view mode
+  const [viewMode, setViewMode] = useState("grid");
 
-  // Fetch cars from the server
   const fetchCars = async () => {
     try {
       const { data } = await axios.get(
@@ -30,7 +28,6 @@ const AvailableCars = () => {
     }
   };
 
-  // Handle search input changes
   const handleSearch = (e) => {
     const query = e.target.value.toLowerCase();
     setSearchQuery(query);
@@ -45,7 +42,6 @@ const AvailableCars = () => {
     setFilteredCars(filtered);
   };
 
-  // Handle sorting
   const handleSort = (e) => {
     const option = e.target.value;
     setSortOption(option);
@@ -75,7 +71,6 @@ const AvailableCars = () => {
           height="80"
           width="80"
           ariaLabel="magnifying-glass-loading"
-          wrapperStyle={{}}
           wrapperClass="magnifying-glass-wrapper"
           glassColor="#c0efff"
           color="#e15b64"
@@ -85,10 +80,9 @@ const AvailableCars = () => {
   }
 
   return (
-    <div className="max-w-screen-xl min-h-screen-64px mx-auto">
-      {/* Search, Sort, and View Controls */}
+    <div className="max-w-screen-xl mx-auto px-4 md:px-6 lg:px-8">
       <div className="mb-6 flex flex-col md:flex-row justify-between items-center gap-4">
-        <h1 className="text-4xl w-full md:w-3/12 font-bold mb-6">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 md:mb-0">
           Available Cars
         </h1>
         <input
@@ -109,22 +103,22 @@ const AvailableCars = () => {
         </select>
         <button
           onClick={() => setViewMode(viewMode === "grid" ? "list" : "grid")}
-          className="btn bg-blue-400"
+          className="btn bg-blue-400 text-white px-4 py-2"
         >
-          {viewMode === "grid" ? "Switch to List View" : "Switch to Grid View"}
+          {viewMode === "grid" ? "List View" : "Grid View"}
         </button>
       </div>
 
       {filteredCars.length === 0 ? (
-        <div className="text-gray-500 min-h-screen flex items-center justify-center">
+        <div className="text-gray-500 min-h-[50vh] flex items-center justify-center">
           No cars match your search.
         </div>
       ) : viewMode === "grid" ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredCars.map((car, index) => (
             <div
               key={index}
-              className="card bg-base-100 shadow-xl mx-auto transition-transform transform hover:scale-105 w-96 md:w-[370px] lg:w-96 mb-12"
+              className="card bg-base-100 shadow-xl transition-transform transform hover:scale-105"
             >
               <figure>
                 <img
@@ -134,7 +128,7 @@ const AvailableCars = () => {
                 />
               </figure>
               <div className="card-body">
-                <h2 className="card-title text-xl font-semibold">
+                <h2 className="card-title text-lg md:text-xl font-semibold">
                   {car.carModel}
                 </h2>
                 <p className="text-gray-700 text-sm">

@@ -7,8 +7,6 @@ import withAutoplay from "react-awesome-slider/dist/autoplay";
 import "react-awesome-slider/dist/styles.css";
 import Rating from "react-rating";
 import { FaRegStar } from "react-icons/fa";
-
-<FaStar />;
 import { FaStar } from "react-icons/fa";
 
 const Testimonials = () => {
@@ -104,9 +102,9 @@ const Testimonials = () => {
             <textarea
               type="text"
               name="comment"
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E51837]"
               placeholder="Write your comment"
-              rows="4"
+              rows="2"
               required
             ></textarea>
           </div>
@@ -129,7 +127,7 @@ const Testimonials = () => {
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition"
+            className="w-full bg-[#E51837] text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition"
             disabled={!user}
           >
             Submit

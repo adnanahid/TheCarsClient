@@ -3,42 +3,89 @@ import { HiOutlineMenuAlt1 } from "react-icons/hi";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 import toast from "react-hot-toast";
+
 const Navbar = () => {
   const { user, signOutUser } = useContext(AuthContext);
 
   const handleSignOut = () => {
-    signOutUser().then((result) => {
+    signOutUser().then(() => {
       toast.success("LogOut successful");
     });
   };
+
   return (
-    <div className="navbar">
-      <div className="navbar-start">
-        <div className="dropdown">
-          <div tabIndex={0} role="button" className="lg:hidden">
-            <HiOutlineMenuAlt1 />
+    <div className=" w-full z-10 bg-blur-md">
+      <div className="max-w-screen-2xl mx-auto flex items-center justify-between px-4 py-2">
+        {/* Navbar Start */}
+        <div className="flex items-center">
+          {/* Dropdown for smaller screens */}
+          <div className="dropdown lg:hidden">
+            <button tabIndex={0} role="button" className="text-2xl">
+              <HiOutlineMenuAlt1 />
+            </button>
+            <div
+              tabIndex={0}
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+            >
+              <NavLink to="/" className="block py-2">
+                Home
+              </NavLink>
+              <NavLink to="/available-cars" className="block py-2">
+                Available Cars
+              </NavLink>
+              {user ? (
+                <>
+                  <NavLink to="/add-car" className="block py-2">
+                    Add Cars
+                  </NavLink>
+                  <NavLink to="/my-cars" className="block py-2">
+                    My Cars
+                  </NavLink>
+                  <NavLink to="/my-booking" className="block py-2">
+                    My Booking
+                  </NavLink>
+                  <button
+                    onClick={handleSignOut}
+                    className="block py-2 text-left"
+                  >
+                    LogOut
+                  </button>
+                </>
+              ) : (
+                <>
+                  <NavLink to="/login" className="block py-2">
+                    Login
+                  </NavLink>
+                  <NavLink to="/registration" className="block py-2">
+                    Registration
+                  </NavLink>
+                </>
+              )}
+            </div>
           </div>
-          <div
-            tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
-          >
-            <NavLink>Home</NavLink>
-          </div>
+
+          {/* Logo */}
+          <img
+            src="/src/assets/logoTesla.png"
+            alt="Logo"
+            className="w-8 ml-2"
+          />
+          <NavLink to="/" className="text-xl font-bold ml-2">
+            The Cars
+          </NavLink>
         </div>
-        <img src="/src/assets/logoTesla.png" alt="" className="w-8"/>
-        <a className="btn btn-ghost text-xl">The Cars</a>
-      </div>
-      <div className="navbar-end hidden lg:flex">
-        <div className="menu menu-horizontal px-1 space-x-5 lg:flex items-center">
+
+        {/* Navbar Links for Larger Screens */}
+        <div className="hidden lg:flex items-center space-x-6">
           <NavLink to="/">Home</NavLink>
-          <NavLink to="available-cars">Available Cars</NavLink>
+          <NavLink to="/available-cars">Available Cars</NavLink>
           {user ? (
-            <div className="space-x-5 flex items-center">
+            <div className="flex items-center space-x-6">
               <NavLink to="/add-car">Add Cars</NavLink>
               <NavLink to="/my-cars">My Cars</NavLink>
               <NavLink to="/my-booking">My Booking</NavLink>
               <div className="dropdown dropdown-end">
-                <div
+                <button
                   tabIndex={0}
                   role="button"
                   className="btn btn-ghost btn-circle avatar"
@@ -50,15 +97,18 @@ const Navbar = () => {
                       src={`${user?.photoURL}`}
                     />
                   </div>
-                </div>
+                </button>
                 <ul
                   tabIndex={0}
                   className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
                 >
                   <li>
-                    <a onClick={handleSignOut} className="justify-between">
+                    <button
+                      onClick={handleSignOut}
+                      className="justify-between text-left"
+                    >
                       LogOut
-                    </a>
+                    </button>
                   </li>
                 </ul>
               </div>

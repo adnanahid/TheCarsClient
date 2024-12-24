@@ -86,7 +86,7 @@ const MyBooking = () => {
                 <td className="text-center">{myCar.carModel}</td>
                 <td className="text-center">{myCar.rentalPrice}</td>
                 <td className="text-center">{myCar.bookingDate}</td>
-                <td className="text-center">{myCar.status}</td>
+                <td className="text-center">{myCar.availability}</td>
                 <td className="text-center">
                   <button onClick={() => setEditBooking(myCar)}>
                     <FaPenFancy />
