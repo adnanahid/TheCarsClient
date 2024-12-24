@@ -48,6 +48,7 @@ const AuthProvider = ({ children }) => {
   // Monitor auth state changes
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      setLoading(true);
       try {
         if (currentUser?.email) {
           // Generate JWT for the logged-in user
@@ -85,6 +86,8 @@ const AuthProvider = ({ children }) => {
     signInWithEmailPass,
     signOutUser,
     updateUserProfile,
+    loading,
+    setLoading,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

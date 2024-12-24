@@ -14,8 +14,6 @@ const LoginPage = () => {
     event.preventDefault();
     signInWithGoogle()
       .then((result) => {
-        
-
         setUser(user);
         toast.success("Login Successfully!");
         navigate("/");

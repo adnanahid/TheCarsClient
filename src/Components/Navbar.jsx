@@ -25,6 +25,7 @@ const Navbar = () => {
             <NavLink>Home</NavLink>
           </div>
         </div>
+        <img src="/src/assets/logoTesla.png" alt="" className="w-8"/>
         <a className="btn btn-ghost text-xl">The Cars</a>
       </div>
       <div className="navbar-end hidden lg:flex">

@@ -23,7 +23,9 @@ const MyCars = () => {
   };
 
   useEffect(() => {
-    fetchCars(sortOption);
+    if (user?.email) {
+      fetchCars(sortOption);
+    }
   }, [user?.email, sortOption]);
 
   // Handle delete
