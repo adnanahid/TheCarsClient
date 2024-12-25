@@ -28,7 +28,7 @@ const SpecialOffers = () => {
               {offer.title}
             </h3>
             <p className="text-gray-600 mt-2">{offer.description}</p>
-            <button className="mt-4 bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors">
+            <button className="mt-4 bg-[#E51837] text-white py-2 px-4 rounded-lg hover:bg-[#E51837] transition-colors">
               {offer.buttonText}
             </button>
           </div>

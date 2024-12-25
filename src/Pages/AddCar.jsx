@@ -134,7 +134,7 @@ const AddCar = () => {
           </div>
 
           {/* Submit Button */}
-          <button type="submit" className="btn btn-primary w-full text-white">
+          <button type="submit" className="btn bg-[#E51837] w-full text-white">
             Add Car
           </button>
         </form>

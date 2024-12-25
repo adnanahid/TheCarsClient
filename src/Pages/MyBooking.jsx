@@ -4,12 +4,20 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { FaTrashCan } from "react-icons/fa6";
 import { FaPenFancy } from "react-icons/fa";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+} from "recharts";
 
 const MyBooking = () => {
   const { user } = useContext(AuthContext);
   const [myBooking, setMyBooking] = useState([]);
   const [editBooking, setEditBooking] = useState(null);
-  console.log(editBooking);
   const fetchCars = async () => {
     try {
       const { data } = await axios.get(
@@ -29,7 +37,9 @@ const MyBooking = () => {
   const handleDelete = async (id) => {
     try {
       await axios.delete(
-        `${import.meta.env.VITE_DEFAULT_URL}/my-booked-car/${id}?email=${user.email}`
+        `${import.meta.env.VITE_DEFAULT_URL}/my-booked-car/${id}?email=${
+          user.email
+        }`
       );
       toast.success("Cancel booking successful");
       fetchCars();
@@ -46,7 +56,9 @@ const MyBooking = () => {
     const UpdatedDate = { startDate, endDate };
     try {
       await axios.patch(
-        `${import.meta.env.VITE_DEFAULT_URL}/my-booked-car/${editBooking.carId}`,
+        `${import.meta.env.VITE_DEFAULT_URL}/my-booked-car/${
+          editBooking.carId
+        }`,
         UpdatedDate
       );
       toast.success("Booking updated successfully");
@@ -59,8 +71,9 @@ const MyBooking = () => {
   };
 
   return (
-    <div className="max-w-screen-lg mx-auto min-h-screen">
+    <div className="max-w-screen-lg mx-auto min-h-screen mt-16">
       <div className="overflow-x-auto">
+        <h1 className="text-4xl font-bold text-center mb-12">My Booking</h1>
         <table className="table">
           <thead>
             <tr>
@@ -147,6 +160,29 @@ const MyBooking = () => {
             ))}
           </tbody>
         </table>
+      </div>
+      <div className="p-4 bg-white rounded-lg shadow-md my-12">
+        <h2 className="text-lg font-semibold text-gray-700 mb-4">
+          Chart based on car Daily Rental Price
+        </h2>
+        <BarChart
+          width={500}
+          height={300}
+          data={myBooking}
+          margin={{
+            top: 20,
+            right: 30,
+            left: 20,
+            bottom: 5,
+          }}
+        >
+          <CartesianGrid strokeDasharray="3 3" className="stroke-gray-300" />
+          <XAxis dataKey="carModel" className="text-gray-500" />
+          <YAxis className="text-gray-500" />
+          <Tooltip wrapperStyle={{ outline: "none" }} />
+          <Legend />
+          <Bar dataKey="rentalPrice" fill="#4f46e5" />
+        </BarChart>
       </div>
     </div>
   );

@@ -81,34 +81,41 @@ const AvailableCars = () => {
 
   return (
     <div className="max-w-screen-xl mx-auto px-4 md:px-6 lg:px-8">
-      <div className="mb-6 flex flex-col md:flex-row justify-between items-center gap-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 md:mb-0">
-          Available Cars
-        </h1>
+      {/* Title */}
+      <h1 className="text-3xl font-bold text-center my-6">Available Cars</h1>
+
+      {/* Search and Filter Section */}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 mb-6">
+        {/* Search Bar */}
         <input
           type="text"
           placeholder="Search by model, brand, or location..."
           value={searchQuery}
           onChange={handleSearch}
-          className="input input-bordered w-full md:w-6/12 px-4 py-2"
+          className="col-span-7 input input-bordered w-full px-4 py-2"
         />
+
+        {/* Sort Dropdown */}
         <select
           value={sortOption}
           onChange={handleSort}
-          className="select select-bordered w-full md:w-3/12 px-4 py-2"
+          className="col-span-3 select select-bordered w-full px-4 py-2"
         >
           <option value="default">Sort by Price</option>
           <option value="price_low_high">Price (Lowest First)</option>
           <option value="price_high_low">Price (Highest First)</option>
         </select>
+
+        {/* View Toggle */}
         <button
           onClick={() => setViewMode(viewMode === "grid" ? "list" : "grid")}
-          className="btn bg-blue-400 text-white px-4 py-2"
+          className="col-span-2 btn bg-blue-400 text-white px-4 py-2"
         >
           {viewMode === "grid" ? "List View" : "Grid View"}
         </button>
       </div>
 
+      {/* Car Listings */}
       {filteredCars.length === 0 ? (
         <div className="text-gray-500 min-h-[50vh] flex items-center justify-center">
           No cars match your search.
@@ -118,7 +125,7 @@ const AvailableCars = () => {
           {filteredCars.map((car, index) => (
             <div
               key={index}
-              className="card bg-base-100 shadow-xl transition-transform transform hover:scale-105"
+              className="card bg-base-100 shadow-xl transition-transform transform hover:scale-105 mb-12"
             >
               <figure>
                 <img
@@ -147,7 +154,7 @@ const AvailableCars = () => {
                   {user ? (
                     <Link
                       to={`/cars/${car._id}`}
-                      className="btn btn-primary w-full hover:bg-blue-600"
+                      className="btn bg-[#E51837] text-white w-full hover:bg-blue-600"
                     >
                       Details
                     </Link>
@@ -190,7 +197,7 @@ const AvailableCars = () => {
               </div>
               <Link
                 to={`/cars/${car._id}`}
-                className="btn btn-primary ml-4 hover:bg-blue-600"
+                className="btn bg-[#E51837] ml-4 hover:bg-blue-600"
               >
                 Details
               </Link>

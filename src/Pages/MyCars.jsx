@@ -107,9 +107,9 @@ const MyCars = () => {
     );
 
   return (
-    <div className="min-h-screen">
-      <div className="flex justify-between items-center lg:max-w-screen-lg mx-auto py-4">
-        <h2 className="text-2xl font-bold">My Cars</h2>
+    <div className="min-h-screen mt-16">
+      <h1 className="text-4xl font-bold text-center mb-12">My Cars</h1>
+      <div className="text-end lg:max-w-screen-lg mx-auto py-4 mb-4">
         <div>
           <label htmlFor="sort" className="mr-2">
             Sort by:

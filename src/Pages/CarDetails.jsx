@@ -123,7 +123,7 @@ const CarDetails = () => {
             <h2 className="text-xl font-semibold mb-2">Description</h2>
             <p className="text-gray-700">{car.description}</p>
           </div>
-          <button onClick={openModal} className="btn w-full bg-blue-400">
+          <button onClick={openModal} className="btn w-full bg-[#E51837]">
             Book Now
           </button>
 
