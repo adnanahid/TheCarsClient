@@ -9,7 +9,7 @@ const MyBooking = () => {
   const { user } = useContext(AuthContext);
   const [myBooking, setMyBooking] = useState([]);
   const [editBooking, setEditBooking] = useState(null);
-
+  console.log(editBooking);
   const fetchCars = async () => {
     try {
       const { data } = await axios.get(
@@ -29,7 +29,7 @@ const MyBooking = () => {
   const handleDelete = async (id) => {
     try {
       await axios.delete(
-        `${import.meta.env.VITE_DEFAULT_URL}/my-booked-car/${id}`
+        `${import.meta.env.VITE_DEFAULT_URL}/my-booked-car/${id}?email=${user.email}`
       );
       toast.success("Cancel booking successful");
       fetchCars();
@@ -46,7 +46,7 @@ const MyBooking = () => {
     const UpdatedDate = { startDate, endDate };
     try {
       await axios.patch(
-        `${import.meta.env.VITE_DEFAULT_URL}/my-booked-car/${editBooking._id}`,
+        `${import.meta.env.VITE_DEFAULT_URL}/my-booked-car/${editBooking.carId}`,
         UpdatedDate
       );
       toast.success("Booking updated successfully");
@@ -139,7 +139,7 @@ const MyBooking = () => {
                   )}
                 </td>
                 <td className="text-center">
-                  <button onClick={() => handleDelete(myCar._id)}>
+                  <button onClick={() => handleDelete(myCar.carId)}>
                     <FaTrashCan />
                   </button>
                 </td>

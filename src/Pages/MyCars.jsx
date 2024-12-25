@@ -12,7 +12,6 @@ const MyCars = () => {
   const [selectedCar, setSelectedCar] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [sortOption, setSortOption] = useState("newest");
-  const [status, setStatus] = useState("");
 
   // Fetch user's cars
   const fetchCars = async (sort = "date_asc") => {
@@ -140,7 +139,6 @@ const MyCars = () => {
               <th className="text-center">Availability</th>
               <th className="text-center">RentRequest</th>
               <th className="text-center">Date Added</th>
-              <th className="text-center">Status</th>
               <th className="text-center">Update</th>
               <th className="text-center">Delete</th>
             </tr>
@@ -162,7 +160,6 @@ const MyCars = () => {
                 <td className="text-center">
                   {new Date(myCar.dateAdded).toLocaleDateString()}
                 </td>
-                <td className="text-center">{myCar.status}</td>
                 <td className="text-center">
                   <button onClick={() => handleOpenUpdateModal(myCar)}>
                     <FaPenFancy />

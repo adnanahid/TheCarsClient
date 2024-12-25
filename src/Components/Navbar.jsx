@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
 import { HiOutlineMenuAlt1 } from "react-icons/hi";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 import toast from "react-hot-toast";
 
 const Navbar = () => {
   const { user, signOutUser } = useContext(AuthContext);
-
+  const navigate = useNavigate();
   const handleSignOut = () => {
     signOutUser().then(() => {
       toast.success("LogOut successful");
@@ -14,7 +14,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className=" w-full z-10 bg-blur-md">
+    <div className="w-full z-10 bg-blur-md">
       <div className="max-w-screen-2xl mx-auto flex items-center justify-between px-4 py-2">
         {/* Navbar Start */}
         <div className="flex items-center">
@@ -25,7 +25,7 @@ const Navbar = () => {
             </button>
             <div
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+              className="menu menu-sm dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
               <NavLink to="/" className="block py-2">
                 Home
@@ -70,9 +70,9 @@ const Navbar = () => {
             alt="Logo"
             className="w-8 ml-2"
           />
-          <NavLink to="/" className="text-xl font-bold ml-2">
+          <div onClick={() => navigate("/")} className="text-xl font-bold ml-2">
             The Cars
-          </NavLink>
+          </div>
         </div>
 
         {/* Navbar Links for Larger Screens */}

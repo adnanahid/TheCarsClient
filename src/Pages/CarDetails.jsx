@@ -63,6 +63,7 @@ const CarDetails = () => {
         rentalPrice: car.rentalPrice,
         availability: "Booked",
         location: car.location,
+        ownerEmail: car.email,
         buyerEmail: user.email,
         bookingDate: format(new Date(), "dd-MM-yyyy HH:mm"),
         description: car.description,
