@@ -1,5 +1,4 @@
 import React from "react";
-import AwesomeSlider from "react-awesome-slider";
 import "react-awesome-slider/dist/styles.css";
 
 const SpecialOffers = () => {
@@ -37,26 +36,32 @@ const SpecialOffers = () => {
   ];
 
   return (
-    <section className="py-10 max-w-[700px] mx-auto">
-      <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
+    <section className="py-10 max-w-[1080px] mx-auto">
+      <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">
         Special Offers
       </h2>
-      <AwesomeSlider className="h-[300px] bg-gray-50 rounded-lg shadow-lg overflow-hidden">
+      <swiper-container
+        class="mySwiper"
+        pagination="true"
+        pagination-clickable="true"
+        space-between="30"
+        slides-per-view="4"
+      >
         {offers.map((offer, index) => (
-          <div
+          <swiper-slide
             key={index}
-            className="offer-car rounded-lg shadow-md p-6 text-center transition-transform transform hover:scale-105 hover:shadow-lg"
+            className="offer-car flex flex-col rounded-lg shadow-md p-6 text-center transition-transform transform hover:scale-105 hover:shadow-lg pb-24 bg-green-500"
           >
             <h3 className="text-xl font-semibold text-gray-800">
               {offer.title}
             </h3>
-            <p className="text-gray-600 mt-2">{offer.description}</p>
-            <button className="mt-4 bg-[#E51837] py-2 px-4 rounded-lg hover:bg-[#C41630] transition-colors">
+            <p className="text-gray-600 mt-2 flex-grow">{offer.description}</p>
+            <button className="mt-4 bg-[#E51837] py-2 px-4 rounded-lg hover:bg-[#C41630] transition-colors text-white">
               {offer.buttonText}
             </button>
-          </div>
+          </swiper-slide>
         ))}
-      </AwesomeSlider>
+      </swiper-container>
     </section>
   );
 };

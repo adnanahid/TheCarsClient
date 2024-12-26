@@ -80,7 +80,7 @@ const AvailableCars = () => {
   }
 
   return (
-    <div className="max-w-screen-xl mx-auto px-4 md:px-6 lg:px-8">
+    <div className="max-w-screen-xl mx-auto px-4 md:px-6 lg:px-8 min-h-screen">
       {/* Title */}
       <h1 className="text-3xl font-bold text-center my-6">Available Cars</h1>
 
@@ -125,7 +125,7 @@ const AvailableCars = () => {
           {filteredCars.map((car, index) => (
             <div
               key={index}
-              className="card bg-base-100 shadow-xl transition-transform transform hover:scale-105 mb-12"
+              className="card bg-base-100 shadow-xl transition-transform transform hover:scale-105 my-12"
             >
               <figure>
                 <img

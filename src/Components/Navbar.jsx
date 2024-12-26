@@ -3,6 +3,7 @@ import { HiOutlineMenuAlt1 } from "react-icons/hi";
 import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 import toast from "react-hot-toast";
+import icon from "../../public/assets/logoTesla.png";
 
 const Navbar = () => {
   const { user, signOutUser } = useContext(AuthContext);
@@ -14,7 +15,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="w-full z-10 bg-blur-md bg-[#E51837] text-white">
+    <div className="w-full z-10 bg-blur-md">
       <div className="max-w-screen-2xl mx-auto flex items-center justify-between px-4 py-2">
         {/* Navbar Start */}
         <div className="flex items-center">
@@ -65,11 +66,7 @@ const Navbar = () => {
           </div>
 
           {/* Logo */}
-          <img
-            src="/src/assets/logoTesla.png"
-            alt="Logo"
-            className="w-8 ml-2"
-          />
+          <img src={icon} alt="Logo" className="w-8 ml-2" />
           <div onClick={() => navigate("/")} className="text-xl font-bold ml-2">
             The Cars
           </div>
@@ -100,7 +97,7 @@ const Navbar = () => {
                 </button>
                 <ul
                   tabIndex={0}
-                  className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+                  className="menu menu-sm bg-[#E51837] dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow"
                 >
                   <li>
                     <button

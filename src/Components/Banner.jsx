@@ -1,12 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import bannerBg from "../assets/banner.jpg";
 
 const Banner = () => {
   return (
     <div
       className="relative h-screen bg-cover bg-center"
       style={{
-        backgroundImage: `url(${"/src/assets/banner.jpg"})`,
+        backgroundImage: `url(${bannerBg})`,
       }}
     >
       {/* Overlay */}

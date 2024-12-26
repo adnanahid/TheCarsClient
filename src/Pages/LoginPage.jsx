@@ -36,7 +36,7 @@ const LoginPage = () => {
         const user = result.user;
         setUser(user);
         toast.success("Login Successfully!");
-        navigate("/");
+        navigate(location?.state ? location.state : "/");
       })
       .catch((error) => {
         const errorMessage = error.message;

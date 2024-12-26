@@ -55,19 +55,21 @@ const Testimonials = () => {
   return (
     <div>
       <h1 className="text-4xl font-bold mt-8 text-center">
-        What our customers  are<br /> saying about us
+        What our customers are
+        <br /> saying about us
       </h1>
 
       {/* Testimonials Slider */}
-      <div className="max-w-[700px] h-[350px] my-12 mx-auto">
-        <AutoplaySlider
-          className="h-[300px] bg-gray-50 rounded-lg shadow-lg overflow-hidden"
-          play={true}
-          cancelOnInteraction={false}
-          interval={3000}
+      <div className="max-w-[1080px] h-[350px] my-12 mx-auto">
+        <swiper-container
+          class="mySwiper"
+          pagination="true"
+          pagination-clickable="true"
+          space-between="30"
+          slides-per-view="3"
         >
           {userComments.map((comment, index) => (
-            <div
+            <swiper-slide
               key={index}
               className="flex flex-col items-center justify-center h-full bg-white px-6 py-8 "
             >
@@ -91,9 +93,9 @@ const Testimonials = () => {
                 />
                 <p className="font-semibold text-gray-800">{comment.name}</p>
               </div>
-            </div>
+            </swiper-slide>
           ))}
-        </AutoplaySlider>
+        </swiper-container>
       </div>
 
       {/* Comment Submission Form */}

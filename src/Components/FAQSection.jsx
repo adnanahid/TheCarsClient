@@ -6,7 +6,7 @@ import AccordionAnimation from "../assets/AccordionAnimation.json";
 const FAQSection = () => {
   return (
     <div className="max-w-screen-lg mx-auto my-24 p-4">
-      <h1 className="text-4xl font-bold text-center mb-12">
+      <h1 className="text-4xl font-bold text-center">
         Everything you need to know about our service
       </h1>
       <div className="flex flex-col md:flex-row items-center gap-8">

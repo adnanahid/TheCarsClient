@@ -1,14 +1,37 @@
 import React, { useContext } from "react";
 import toast from "react-hot-toast";
 import { AuthContext } from "../Provider/AuthProvider";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Lottie from "lottie-react";
 import RegistrationAnimation from "../assets/RegistrationAnimation.json";
+import { FaGoogle } from "react-icons/fa";
 
 const Registration = () => {
-  const { setUser, userRegistration, updateUserProfile, signOutUser } =
-    useContext(AuthContext);
+  const {
+    user,
+    setUser,
+    userRegistration,
+    updateUserProfile,
+    signOutUser,
+    signInWithGoogle,
+  } = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleGoogleLogin = (event) => {
+    event.preventDefault();
+    signInWithGoogle()
+      .then((result) => {
+        setUser(user);
+        toast.success("Login Successfully!");
+        navigate(location?.state ? location.state : "/");
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        console.error(errorMessage);
+        toast.error("An error occurred. Please try again.");
+      });
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -120,7 +143,19 @@ const Registration = () => {
           >
             Register
           </button>
+          <div className="mt-4 flex items-center justify-between">
+            <span className="block h-px bg-gray-300 w-full"></span>
+            <span className="text-sm text-gray-500 px-4">or</span>
+            <span className="block h-px bg-gray-300 w-full"></span>
+          </div>
         </form>
+        <button
+          onClick={handleGoogleLogin}
+          className="mt-4 w-full flex items-center justify-center gap-2 bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-600 transition-all"
+        >
+          <FaGoogle />
+          Login with Google
+        </button>
 
         {/* Redirect to Login Page */}
         <p className="mt-4 text-center text-gray-600">
