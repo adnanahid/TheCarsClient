@@ -14,6 +14,7 @@ import AvailableCars from "./Pages/AvailableCars";
 import CarDetails from "./Pages/CarDetails";
 import MyBooking from "./Pages/MyBooking";
 import PrivateRoute from "./PrivateRoute/privateRoute";
+import axios from "axios";
 
 const router = createBrowserRouter([
   {
@@ -32,13 +33,17 @@ const router = createBrowserRouter([
       {
         path: "/cars/:id",
         loader: ({ params }) =>
-          fetch(`${import.meta.env.VITE_DEFAULT_URL}/cars/${params.id}`),
+          axios({
+            url: `${import.meta.env.VITE_DEFAULT_URL}/cars/${params.id}`,
+            withCredentials: true, // Ensures cookies are sent with the request
+          }),
         element: (
           <PrivateRoute>
             <CarDetails></CarDetails>
           </PrivateRoute>
         ),
       },
+
       {
         path: "/add-car",
         element: (

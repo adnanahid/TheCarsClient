@@ -4,7 +4,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { FaTrashCan } from "react-icons/fa6";
 import { SlCalender } from "react-icons/sl";
-import EmptyAnimation from "../assets/EmptyAnimation.json"
+import EmptyAnimation from "../assets/EmptyAnimation.json";
 
 import {
   BarChart,
@@ -17,11 +17,16 @@ import {
 } from "recharts";
 import Swal from "sweetalert2";
 import Lottie from "lottie-react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const MyBooking = () => {
   const { user } = useContext(AuthContext);
   const [myBooking, setMyBooking] = useState([]);
   const [editBooking, setEditBooking] = useState(null);
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+
   const fetchCars = async () => {
     try {
       const { data } = await axios.get(
@@ -38,34 +43,35 @@ const MyBooking = () => {
     fetchCars();
   }, [user?.email]);
 
-  //! handleDElete operations
-  const handleDelete = async (id) => {
+  //! handleDelete operations
+  const handleCancelBooking = async (id) => {
     try {
       const result = await Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
         icon: "warning",
         showCancelButton: true,
-        position: "top-right",
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes, delete it!",
       });
 
       if (result.isConfirmed) {
-        await axios.delete(
+        await axios.put(
           `${import.meta.env.VITE_DEFAULT_URL}/my-booked-car/${id}?email=${
             user.email
-          }`
+          }`,
+          { status: "cancel" },
+          { withCredentials: true }
         );
 
         toast.success("Cancel booking successful");
         fetchCars(); // Ensure this function is defined and updates the UI properly.
 
         await Swal.fire({
-          title: "Deleted!",
+          title: "Canceled!",
           position: "top-right",
-          text: "Your booking has been deleted.",
+          text: "Your booking has been canceled.",
           icon: "success",
         });
       }
@@ -75,17 +81,16 @@ const MyBooking = () => {
     }
   };
 
+  //! handleUpdate operations
   const handleUpdate = async (e) => {
     e.preventDefault();
-    const startDate = e.target.startDate.value;
-    const endDate = e.target.endData.value;
-    const UpdatedDate = { startDate, endDate };
     try {
       await axios.patch(
         `${import.meta.env.VITE_DEFAULT_URL}/my-booked-car/${
           editBooking.carId
         }`,
-        UpdatedDate
+        { startDate, endDate },
+        { withCredentials: true }
       );
       toast.success("Booking updated successfully");
       setEditBooking(null); // Close modal
@@ -106,7 +111,7 @@ const MyBooking = () => {
               <tr>
                 <th className="text-center">Image</th>
                 <th className="text-center">Model</th>
-                <th className="text-center">Price/d</th>
+                <th className="text-center">Total Price</th>
                 <th className="text-center">Date Added</th>
                 <th className="text-center">Status</th>
                 <th className="text-center">Update</th>
@@ -124,13 +129,23 @@ const MyBooking = () => {
                     </div>
                   </td>
                   <td className="text-center">{myCar.carModel}</td>
-                  <td className="text-center">{myCar.rentalPrice}</td>
+                  <td className="text-center">
+                    {Math.ceil(
+                      (new Date(myCar?.endDate) - new Date(myCar?.startDate)) /
+                        (1000 * 60 * 60 * 24)
+                    ) * parseInt(myCar.rentalPrice)}
+                  </td>
                   <td className="text-center">{myCar.bookingDate}</td>
-                  <td className="text-center">{myCar.availability}</td>
+                  <td className="text-center">{myCar.status}</td>
                   <td className="text-center">
                     <button
-                      onClick={() => setEditBooking(myCar)}
+                      onClick={() => {
+                        setEditBooking(myCar);
+                        setStartDate(new Date(myCar.startDate));
+                        setEndDate(new Date(myCar.endDate));
+                      }}
                       className="btn btn-xs bg-blue-400 text-white gap-2 items-center text-center hover:bg-blue-600"
+                      disabled={myCar.status === "cancel"}
                     >
                       <SlCalender /> <span>Modify Date</span>
                     </button>
@@ -148,24 +163,22 @@ const MyBooking = () => {
                             <label className="block font-medium">
                               Start Date
                             </label>
-                            <input
-                              type="date"
-                              name="startDate"
-                              required
+                            <DatePicker
+                              selected={startDate}
+                              onChange={(date) => setStartDate(date)}
                               className="input input-bordered w-full"
-                              defaultValue={editBooking.startDate}
+                              dateFormat="yyyy-MM-dd"
                             />
                           </div>
                           <div className="py-2">
                             <label className="block font-medium">
                               End Date
                             </label>
-                            <input
-                              type="date"
-                              name="endData"
-                              required
+                            <DatePicker
+                              selected={endDate}
+                              onChange={(date) => setEndDate(date)}
                               className="input input-bordered w-full"
-                              defaultValue={editBooking.endDate}
+                              dateFormat="yyyy-MM-dd"
                             />
                           </div>
                           <div className="modal-action">
@@ -185,8 +198,13 @@ const MyBooking = () => {
                   </td>
                   <td className="text-center">
                     <button
-                      onClick={() => handleDelete(myCar.carId)}
-                      className="btn btn-xs bg-red-500 hover:bg-red-600 text-white"
+                      onClick={() => handleCancelBooking(myCar.carId)}
+                      disabled={myCar.status === "cancel"}
+                      className={`btn btn-xs ${
+                        myCar.status === "cancel"
+                          ? "bg-gray-400 text-gray-700 cursor-not-allowed"
+                          : "bg-red-500 hover:bg-red-600 text-white"
+                      }`}
                     >
                       <FaTrashCan /> <span>Cancel Booking</span>
                     </button>

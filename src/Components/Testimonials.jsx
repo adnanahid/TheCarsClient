@@ -16,7 +16,8 @@ const Testimonials = () => {
   const fetchComments = async () => {
     try {
       const { data } = await axios.get(
-        `${import.meta.env.VITE_DEFAULT_URL}/get-comments`
+        `${import.meta.env.VITE_DEFAULT_URL}/get-comments`,
+        { withCredentials: true }
       );
       setUserComments(data);
     } catch (error) {

@@ -12,7 +12,8 @@ const RecentCars = () => {
     const fetchCars = async () => {
       try {
         const { data } = await axios.get(
-          `${import.meta.env.VITE_DEFAULT_URL}/recent-cars`
+          `${import.meta.env.VITE_DEFAULT_URL}/recent-cars`,
+          { withCredentials: true }
         );
         setAvailable(data);
       } catch (error) {

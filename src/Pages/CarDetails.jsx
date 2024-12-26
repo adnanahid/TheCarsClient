@@ -4,9 +4,12 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import { AuthContext } from "../Provider/AuthProvider";
 import toast from "react-hot-toast";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const CarDetails = () => {
-  const car = useLoaderData();
+  const { data } = useLoaderData();
+  const car = data;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -71,6 +74,7 @@ const CarDetails = () => {
         registration: car.registration,
         startDate,
         endDate,
+        status: "confirmed",
       };
 
       if (user?.email === car.email) {
@@ -79,7 +83,8 @@ const CarDetails = () => {
 
       await axios.post(
         `${import.meta.env.VITE_DEFAULT_URL}/add-booking`,
-        bookingData
+        bookingData,
+        { withCredentials: true }
       );
 
       toast.success("Booking successful!");
@@ -142,34 +147,32 @@ const CarDetails = () => {
                   You are booking <strong>{car.carModel}</strong> for{" "}
                   <strong>${car.rentalPrice}</strong> per day.
                 </p>
-                <div className="py-2">
+                <div className="py-2 text-center">
                   <label
                     htmlFor="start-date"
                     className="block font-medium mb-2"
                   >
                     Start Date
                   </label>
-                  <input
-                    id="start-date"
-                    required
-                    type="date"
-                    value={startDate}
-                    min={today}
-                    onChange={(e) => setStartDate(e.target.value)}
+                  <DatePicker
+                    selected={startDate}
+                    onChange={(date) => setStartDate(date)}
+                    minDate={new Date()} // Prevent selecting past dates
+                    dateFormat="yyyy-MM-dd" // Ensure consistent format
+                    placeholderText="Select start date"
                     className="input input-bordered w-full"
                   />
                 </div>
-                <div className="py-2">
+                <div className="py-2 text-center">
                   <label htmlFor="end-date" className="block font-medium mb-2">
                     End Date
                   </label>
-                  <input
-                    id="end-date"
-                    required
-                    type="date"
-                    value={endDate}
-                    min={startDate || today}
-                    onChange={(e) => setEndDate(e.target.value)}
+                  <DatePicker
+                    selected={endDate}
+                    onChange={(date) => setEndDate(date)}
+                    minDate={startDate || new Date()} // Prevent selecting dates before startDate
+                    dateFormat="yyyy-MM-dd"
+                    placeholderText="Select end date"
                     className="input input-bordered w-full"
                   />
                 </div>

@@ -24,7 +24,7 @@ const AddCar = () => {
           availability: "Available",
           PostedBy: user?.displayName,
           email: user?.email,
-        }
+        }, {withCredentials:true}
       );
       // Reset the form
       e.target.reset();

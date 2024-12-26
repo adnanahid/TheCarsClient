@@ -39,7 +39,8 @@ const MyCars = () => {
             onClick={async () => {
               try {
                 await axios.delete(
-                  `${import.meta.env.VITE_DEFAULT_URL}/cars/${carId}`
+                  `${import.meta.env.VITE_DEFAULT_URL}/cars/${carId}`,
+                  { withCredentials: true }
                 );
                 toast.success("Car deleted successfully!");
                 toast.dismiss(t.id);
