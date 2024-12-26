@@ -2,9 +2,11 @@ import React, { useContext } from "react";
 import toast from "react-hot-toast";
 import { AuthContext } from "../Provider/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
+import Lottie from "lottie-react";
+import RegistrationAnimation from "../assets/RegistrationAnimation.json";
 
 const Registration = () => {
-  const { setUser, userRegistration, updateUserProfile } =
+  const { setUser, userRegistration, updateUserProfile, signOutUser } =
     useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -18,16 +20,24 @@ const Registration = () => {
     userRegistration(email, password)
       .then((userCredential) => {
         const user = userCredential.user;
+
+        // Update the user profile with displayName and photoURL
         updateUserProfile({
           displayName,
           photoURL,
-        })
+        });
+        signOutUser().then(() => {});
+        navigate("/login") // Redirect after successful registration
           .then(() => {
             setUser({ ...user, displayName, photoURL });
+            toast.success("Registration Successful!");
+
+            //after registration user have to login
           })
-          .catch((error) => console.error("Profile update error:", error));
-        toast.success("Registration Successful!");
-        navigate("/");
+          .catch((error) => {
+            console.error("Profile update error:", error.message);
+            toast.error("Failed to update profile. Please try again.");
+          });
       })
       .catch((error) => {
         console.error("Error during registration:", error.message);
@@ -36,13 +46,19 @@ const Registration = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-gray-50 flex items-center justify-center px-4">
-      <div className="w-full max-w-md bg-white shadow-lg rounded-lg p-8">
+    <div className="min-h-screen max-w-screen-lg mx-auto flex flex-col md:flex-row items-center justify-center px-4 py-8">
+      {/* Animation Section */}
+      <div className="w-full md:w-1/2 flex justify-center">
+        <Lottie animationData={RegistrationAnimation} loop={true} />
+      </div>
+
+      {/* Registration Form Section */}
+      <div className="w-full md:w-1/2 max-w-md bg-white shadow-lg rounded-lg p-8">
         <h2 className="text-3xl font-bold text-gray-800 text-center mb-6">
           Register
         </h2>
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Name */}
+          {/* Full Name Input */}
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Full Name
@@ -50,13 +66,13 @@ const Registration = () => {
             <input
               type="text"
               name="name"
-              className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-md focus:ring focus:ring-[#E51837] focus:outline-none"
+              className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-md focus:ring focus:ring-red-500 focus:outline-none"
               placeholder="Enter your name"
               required
             />
           </div>
 
-          {/* Email */}
+          {/* Email Input */}
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Email Address
@@ -64,13 +80,13 @@ const Registration = () => {
             <input
               type="email"
               name="email"
-              className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-md focus:ring focus:ring-[#E51837] focus:outline-none"
+              className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-md focus:ring focus:ring-red-500 focus:outline-none"
               placeholder="Enter your email"
               required
             />
           </div>
 
-          {/* Password */}
+          {/* Password Input */}
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Password
@@ -78,13 +94,13 @@ const Registration = () => {
             <input
               type="password"
               name="password"
-              className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-md focus:ring focus:ring-[#E51837] focus:outline-none"
+              className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-md focus:ring focus:ring-red-500 focus:outline-none"
               placeholder="Enter your password"
               required
             />
           </div>
 
-          {/* Photo URL */}
+          {/* Photo URL Input */}
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Photo URL (Optional)
@@ -92,7 +108,7 @@ const Registration = () => {
             <input
               type="url"
               name="photoURL"
-              className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-md focus:ring focus:ring-[#E51837] focus:outline-none"
+              className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-md focus:ring focus:ring-red-500 focus:outline-none"
               placeholder="Enter a photo URL"
             />
           </div>
@@ -100,13 +116,13 @@ const Registration = () => {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full bg-[#E51837] text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-red-500"
+            className="w-full bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:ring-red-500"
           >
             Register
           </button>
         </form>
 
-        {/* Login Page Link */}
+        {/* Redirect to Login Page */}
         <p className="mt-4 text-center text-gray-600">
           Already have an account?{" "}
           <Link to="/login" className="text-blue-500 hover:underline">

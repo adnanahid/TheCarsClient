@@ -1,4 +1,6 @@
 import React from "react";
+import AwesomeSlider from "react-awesome-slider";
+import "react-awesome-slider/dist/styles.css";
 
 const SpecialOffers = () => {
   const offers = [
@@ -14,26 +16,47 @@ const SpecialOffers = () => {
         "Experience luxury at an unbeatable price. Limited time offer.",
       buttonText: "Book Now",
     },
+    {
+      title: "Free fuel for the first 100 miles!",
+      description:
+        "Rent now and enjoy free fuel for your first 100 miles. Available on select cars.",
+      buttonText: "Explore Now",
+    },
+    {
+      title: "Early bird special: Save up to 20%!",
+      description:
+        "Plan ahead and book your car early to enjoy great savings. Limited availability.",
+      buttonText: "Reserve Now",
+    },
+    {
+      title: "Family package: SUVs at 10% off!",
+      description:
+        "Perfect for family trips! Book an SUV and get a discount this season.",
+      buttonText: "Check Details",
+    },
   ];
 
   return (
-    <section className="bg-gray-100 py-10">
-      <div className="flex flex-wrap justify-center gap-6 px-5">
+    <section className="py-10 max-w-[700px] mx-auto">
+      <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
+        Special Offers
+      </h2>
+      <AwesomeSlider className="h-[300px] bg-gray-50 rounded-lg shadow-lg overflow-hidden">
         {offers.map((offer, index) => (
           <div
             key={index}
-            className="offer-card relative w-80 bg-white rounded-lg shadow-md p-6 text-center transition-transform transform hover:scale-105 hover:shadow-lg"
+            className="offer-car rounded-lg shadow-md p-6 text-center transition-transform transform hover:scale-105 hover:shadow-lg"
           >
             <h3 className="text-xl font-semibold text-gray-800">
               {offer.title}
             </h3>
             <p className="text-gray-600 mt-2">{offer.description}</p>
-            <button className="mt-4 bg-[#E51837] text-white py-2 px-4 rounded-lg hover:bg-[#E51837] transition-colors">
+            <button className="mt-4 bg-[#E51837] py-2 px-4 rounded-lg hover:bg-[#C41630] transition-colors">
               {offer.buttonText}
             </button>
           </div>
         ))}
-      </div>
+      </AwesomeSlider>
     </section>
   );
 };

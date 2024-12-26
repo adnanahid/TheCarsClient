@@ -6,27 +6,27 @@ import AwesomeSlider from "react-awesome-slider";
 import withAutoplay from "react-awesome-slider/dist/autoplay";
 import "react-awesome-slider/dist/styles.css";
 import Rating from "react-rating";
-import { FaRegStar } from "react-icons/fa";
-import { FaStar } from "react-icons/fa";
+import { FaRegStar, FaStar } from "react-icons/fa";
 
 const Testimonials = () => {
   const AutoplaySlider = withAutoplay(AwesomeSlider);
   const { user } = useContext(AuthContext);
   const [userComments, setUserComments] = useState([]);
 
+  const fetchComments = async () => {
+    try {
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_DEFAULT_URL}/get-comments`
+      );
+      setUserComments(data);
+    } catch (error) {
+      toast.error("Error fetching comments.");
+    }
+  };
+
   useEffect(() => {
-    const fetchComments = async () => {
-      try {
-        const { data } = await axios.get(
-          `${import.meta.env.VITE_DEFAULT_URL}/get-comments`
-        );
-        setUserComments(data);
-      } catch (error) {
-        toast.error("Error fetching cars.");
-      }
-    };
     fetchComments();
-  }, [user?.email]);
+  }, []);
 
   const handleComment = async (e) => {
     e.preventDefault();
@@ -38,24 +38,30 @@ const Testimonials = () => {
       rating,
       comment,
     };
+
     try {
-      const { data } = await axios.post(
-        "${${import.meta.env.VITE_DEFAULT_URL}}/add-comment",
+      await axios.post(
+        `${import.meta.env.VITE_DEFAULT_URL}/add-comment`,
         commentsInfo
       );
-      toast.success("comment Posted");
+      toast.success("Comment posted successfully!");
       fetchComments();
       e.target.reset();
     } catch {
-      toast.error("error happened");
+      toast.error("An error occurred while posting the comment.");
     }
   };
+
   return (
     <div>
-      <h1 className="text-4xl font-bold text-center">User Testimonials</h1>
-      <div className=" max-w-screen-lg h-[350px] my-12 mx-auto">
+      <h1 className="text-4xl font-bold mt-8 text-center">
+        What our customers  are<br /> saying about us
+      </h1>
+
+      {/* Testimonials Slider */}
+      <div className="max-w-[700px] h-[350px] my-12 mx-auto">
         <AutoplaySlider
-          className="h-[200px] md:h-[300px] lg:h-[300px]"
+          className="h-[300px] bg-gray-50 rounded-lg shadow-lg overflow-hidden"
           play={true}
           cancelOnInteraction={false}
           interval={3000}
@@ -63,34 +69,41 @@ const Testimonials = () => {
           {userComments.map((comment, index) => (
             <div
               key={index}
-              className="py-2 h-[300px] w-full text-center  bg-white"
+              className="flex flex-col items-center justify-center h-full bg-white px-6 py-8 "
             >
-              <img
-                src={`${comment.photo}`}
-                alt=""
-                className="mx-auto w-20 rounded-full"
-              />
-              <p className="font-semibold">{comment.name}</p>
-              <p className="w-8/12 mx-auto">{comment.comment}</p>
               <Rating
                 placeholderRating={comment.rating}
-                emptySymbol={<FaRegStar />}
-                placeholderSymbol={<FaStar />}
-                fullSymbol={<FaStar />}
+                emptySymbol={<FaRegStar className="text-yellow-500 text-xl" />}
+                placeholderSymbol={
+                  <FaStar className="text-yellow-500 text-xl" />
+                }
+                fullSymbol={<FaStar className="text-yellow-500 text-xl" />}
+                readonly
               />
+              <p className="text-gray-600 text-sm mt-3 w-10/12 mx-auto">
+                {comment.comment}
+              </p>
+              <div className="flex flex-col items-center mt-6">
+                <img
+                  src={comment.photo}
+                  alt={`${comment.name}'s avatar`}
+                  className="w-16 h-16 rounded-full shadow-md mb-3"
+                />
+                <p className="font-semibold text-gray-800">{comment.name}</p>
+              </div>
             </div>
           ))}
         </AutoplaySlider>
       </div>
 
-      <div>
-        {/* Comment Form */}
+      {/* Comment Submission Form */}
+      {/* <div>
         <form
           onSubmit={handleComment}
           className="max-w-2xl mx-auto bg-white shadow-lg rounded-lg p-6 mb-8"
         >
-          <h2 className="text-2xl font-bold text-center mb-6">
-            Post your Comment
+          <h2 className="text-2xl font-bold mb-6">
+            Post Your Comment
           </h2>
           <div className="mb-4">
             <label
@@ -100,7 +113,6 @@ const Testimonials = () => {
               Your Comment
             </label>
             <textarea
-              type="text"
               name="comment"
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E51837]"
               placeholder="Write your comment"
@@ -110,30 +122,32 @@ const Testimonials = () => {
           </div>
           <div className="mb-4">
             <label
-              htmlFor="comment"
+              htmlFor="rating"
               className="block text-gray-700 font-medium mb-2"
             >
-              Rating
+              Rating (1-5)
             </label>
             <input
               type="number"
               name="rating"
               min="1"
               max="5"
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="give your Rating"
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E51837]"
+              placeholder="Give your rating"
               required
-            ></input>
+            />
           </div>
           <button
             type="submit"
-            className="w-full bg-[#E51837] text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition"
+            className={`w-full bg-[#E51837] text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition ${
+              !user && "opacity-50 cursor-not-allowed"
+            }`}
             disabled={!user}
           >
-            Submit
+            {user ? "Submit" : "Login to Submit"}
           </button>
         </form>
-      </div>
+      </div> */}
     </div>
   );
 };
