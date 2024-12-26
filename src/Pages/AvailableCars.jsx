@@ -178,7 +178,7 @@ const AvailableCars = () => {
               <img
                 src={car.carImage || "https://via.placeholder.com/150x100"}
                 alt={car.carModel || "Car Image"}
-                className="h-[150px] w-[250px] rounded-md object-cover mr-4"
+                className="h-[100px] w-[150px] rounded-md object-cover mr-4"
               />
               <div className="flex-1">
                 <h2 className="text-lg font-semibold">{car.carModel}</h2>

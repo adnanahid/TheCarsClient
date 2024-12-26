@@ -22,16 +22,16 @@ const Footer = () => {
         <nav>
           <h6 className="footer-title">Social</h6>
           <div className="grid grid-flow-col gap-4">
-            <a>
+            <a href="https://www.facebook.com/" target="_blank">
               <FaFacebookF className="w-6 h-6"></FaFacebookF>
             </a>
-            <a>
+            <a href="https://www.facebook.com/" target="_blank">
               <FaLinkedinIn className="w-6 h-6"></FaLinkedinIn>
             </a>
-            <a>
+            <a href="https://www.facebook.com/" target="_blank">
               <FaInstagram className="w-6 h-6"></FaInstagram>
             </a>
-            <a>
+            <a href="https://www.facebook.com/" target="_blank">
               <FaTwitter className="w-6 h-6"></FaTwitter>
             </a>
           </div>

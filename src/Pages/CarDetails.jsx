@@ -142,6 +142,7 @@ const CarDetails = () => {
                     Start Date
                   </label>
                   <input
+                    required
                     type="date"
                     id="start-date"
                     value={startDate}
@@ -155,6 +156,7 @@ const CarDetails = () => {
                     End Date
                   </label>
                   <input
+                    required
                     type="date"
                     id="end-date"
                     value={endDate}

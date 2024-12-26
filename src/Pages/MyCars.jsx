@@ -131,7 +131,7 @@ const MyCars = () => {
       </div>
 
       <div className="overflow-x-auto lg:max-w-screen-lg mx-auto">
-        <table className="table">
+        <table className="table table-auto w-full">
           {/* head */}
           <thead>
             <tr>
@@ -164,12 +164,12 @@ const MyCars = () => {
                 </td>
                 <td className="text-center">
                   <button onClick={() => handleOpenUpdateModal(myCar)}>
-                    <FaPenFancy className="text-blue-600"/>
+                    <FaPenFancy className="text-blue-600" />
                   </button>
                 </td>
                 <td className="text-center">
                   <button onClick={() => handleDelete(myCar._id)}>
-                    <FaTrashCan className="text-red-600"/>
+                    <FaTrashCan className="text-red-600" />
                   </button>
                 </td>
               </tr>
@@ -181,7 +181,7 @@ const MyCars = () => {
       {/* Update modal */}
       {isOpen && selectedCar && (
         <dialog className="modal modal-bottom sm:modal-middle" open>
-          <div className="modal-box">
+          <div className="modal-box max-w-lg w-full">
             <form onSubmit={handleUpdate} className="space-y-1">
               {/* Car Model */}
               <div className="form-control">

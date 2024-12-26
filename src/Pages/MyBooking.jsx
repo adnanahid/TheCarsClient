@@ -51,12 +51,14 @@ const MyBooking = () => {
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!",
+        confirmButtonText: "Yes, cancel the booking!",
       });
 
       if (result.isConfirmed) {
         await axios.put(
-          `${import.meta.env.VITE_DEFAULT_URL}/my-booked-car/${id}?email=${user.email}`,
+          `${import.meta.env.VITE_DEFAULT_URL}/my-booked-car/${id}?email=${
+            user.email
+          }`,
           { status: "cancel" },
           { withCredentials: true }
         );
@@ -82,7 +84,9 @@ const MyBooking = () => {
     e.preventDefault();
     try {
       await axios.patch(
-        `${import.meta.env.VITE_DEFAULT_URL}/my-booked-car/${editBooking.carId}`,
+        `${import.meta.env.VITE_DEFAULT_URL}/my-booked-car/${
+          editBooking.carId
+        }`,
         { startDate, endDate },
         { withCredentials: true }
       );
@@ -96,11 +100,11 @@ const MyBooking = () => {
   };
 
   return (
-    <div className="max-w-screen-lg mx-auto min-h-screen mt-16">
+    <div className="max-w-screen-lg mx-auto min-h-screen mt-16 px-4 sm:px-6 lg:px-8">
       <div className="overflow-x-auto">
         <h1 className="text-4xl font-bold text-center mb-12">My Booking</h1>
         {myBooking.length > 0 ? (
-          <table className="table">
+          <table className="table table-auto w-full">
             <thead>
               <tr>
                 <th className="text-center text-lg font-bold">Image</th>
@@ -109,7 +113,9 @@ const MyBooking = () => {
                 <th className="text-center text-lg font-bold">Date Added</th>
                 <th className="text-center text-lg font-bold">Status</th>
                 <th className="text-center text-lg font-bold">Update</th>
-                <th className="text-center text-lg font-bold">Cancel Booking</th>
+                <th className="text-center text-lg font-bold">
+                  Cancel Booking
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -138,7 +144,7 @@ const MyBooking = () => {
                         setStartDate(new Date(myCar.startDate));
                         setEndDate(new Date(myCar.endDate));
                       }}
-                      className="btn btn-xs bg-blue-400 text-white gap-2 items-center text-center hover:bg-blue-600"
+                      className="btn btn-xs bg-blue-400 flex text-white gap-2 items-center text-center hover:bg-blue-600"
                       disabled={myCar.status === "cancel"}
                     >
                       <SlCalender /> <span>Modify Date</span>
@@ -163,7 +169,9 @@ const MyBooking = () => {
                             <input
                               type="date"
                               value={startDate?.toISOString().split("T")[0]}
-                              onChange={(e) => setStartDate(new Date(e.target.value))}
+                              onChange={(e) =>
+                                setStartDate(new Date(e.target.value))
+                              }
                               className="input input-bordered w-full"
                             />
                           </div>
@@ -174,7 +182,9 @@ const MyBooking = () => {
                             <input
                               type="date"
                               value={endDate?.toISOString().split("T")[0]}
-                              onChange={(e) => setEndDate(new Date(e.target.value))}
+                              onChange={(e) =>
+                                setEndDate(new Date(e.target.value))
+                              }
                               className="input input-bordered w-full"
                             />
                           </div>
@@ -216,14 +226,15 @@ const MyBooking = () => {
           </div>
         )}
       </div>
+
       {myBooking.length > 0 && (
         <div className="p-4 bg-white rounded-lg shadow-md my-12">
           <h2 className="text-2xl font-semibold text-gray-700 mb-4">
             Chart based on car Daily Rental Price
           </h2>
           <BarChart
-            width={500}
-            height={300}
+            width={300}
+            height={200}
             data={myBooking}
             margin={{
               top: 20,
@@ -231,6 +242,7 @@ const MyBooking = () => {
               left: 20,
               bottom: 5,
             }}
+            className="w-full md:w-2/3 lg:w-1/2"
           >
             <CartesianGrid strokeDasharray="3 3" className="stroke-gray-300" />
             <XAxis dataKey="carModel" className="text-gray-500" />

@@ -15,7 +15,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="w-full z-10 bg-blur-md shadow-lg md:h-16">
+    <div className="w-full shadow-lg md:h-16">
       <div className="max-w-screen-2xl mx-auto flex items-center justify-between px-4 py-2">
         {/* Navbar Start */}
         <div className="flex items-center">
@@ -26,7 +26,7 @@ const Navbar = () => {
             </button>
             <div
               tabIndex={0}
-              className="menu menu-sm dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow"
+              className="menu menu-sm dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow bg-white"
             >
               <NavLink to="/" className="block py-2">
                 Home

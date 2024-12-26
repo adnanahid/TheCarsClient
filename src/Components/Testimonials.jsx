@@ -43,7 +43,8 @@ const Testimonials = () => {
     try {
       await axios.post(
         `${import.meta.env.VITE_DEFAULT_URL}/add-comment`,
-        commentsInfo
+        commentsInfo,
+        { withCredentials: true }
       );
       toast.success("Comment posted successfully!");
       fetchComments();
@@ -61,29 +62,33 @@ const Testimonials = () => {
       </h1>
 
       {/* Testimonials Slider */}
-      <div className="max-w-[1080px] h-[350px] my-12 mx-auto">
+      <div className="max-w-[680px] h-[350px] my-12 mx-auto">
         <swiper-container
           class="mySwiper"
           pagination="true"
           pagination-clickable="true"
           space-between="30"
-          slides-per-view="3"
+          slides-per-view="1"
         >
           {userComments.map((comment, index) => (
             <swiper-slide
               key={index}
-              className="flex flex-col items-center justify-center h-full bg-white px-6 py-8 "
+              className="flex flex-col items-center text-center justify-center h-full bg-white px-6 py-8 "
             >
-              <Rating
-                placeholderRating={comment.rating}
-                emptySymbol={<FaRegStar className="text-yellow-500 text-xl" />}
-                placeholderSymbol={
-                  <FaStar className="text-yellow-500 text-xl" />
-                }
-                fullSymbol={<FaStar className="text-yellow-500 text-xl" />}
-                readonly
-              />
-              <p className="text-gray-600 text-sm mt-3 w-10/12 mx-auto flex-grow">
+              <div className="text-center">
+                <Rating
+                  placeholderRating={comment.rating}
+                  emptySymbol={
+                    <FaRegStar className="text-yellow-500 text-xl" />
+                  }
+                  placeholderSymbol={
+                    <FaStar className="text-yellow-500 text-xl" />
+                  }
+                  fullSymbol={<FaStar className="text-yellow-500 text-xl" />}
+                  readonly
+                />
+              </div>
+              <p className="text-gray-600 text-sm mt-3 w-10/12 mx-auto flex-grow text-center">
                 {comment.comment}
               </p>
               <div className="flex flex-col items-center mt-6">
@@ -99,15 +104,13 @@ const Testimonials = () => {
         </swiper-container>
       </div>
 
-      {/* Comment Submission Form */} 
+      {/* Comment Submission Form */}
       <div>
         <form
           onSubmit={handleComment}
           className="max-w-2xl mx-auto bg-white shadow-lg rounded-lg p-6 mb-8"
         >
-          <h2 className="text-2xl font-bold mb-6">
-            Post Your Comment
-          </h2>
+          <h2 className="text-2xl font-bold mb-6">Post Your Comment</h2>
           <div className="mb-4">
             <label
               htmlFor="comment"

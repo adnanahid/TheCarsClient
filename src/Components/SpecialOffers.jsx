@@ -36,7 +36,7 @@ const SpecialOffers = () => {
   ];
 
   return (
-    <section className="py-10 max-w-[1080px] mx-auto">
+    <section className="py-10 max-w-[700px] mx-auto">
       <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">
         Special Offers
       </h2>
@@ -45,7 +45,7 @@ const SpecialOffers = () => {
         pagination="true"
         pagination-clickable="true"
         space-between="30"
-        slides-per-view="4"
+        slides-per-view="1"
       >
         {offers.map((offer, index) => (
           <swiper-slide key={index}>
