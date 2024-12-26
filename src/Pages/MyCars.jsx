@@ -154,7 +154,7 @@ const MyCars = () => {
                   </div>
                 </td>
                 <td className="text-center">{myCar.carModel}</td>
-                <td className="text-center">{myCar.rentalPrice}</td>
+                <td className="text-center">{myCar.rentalPrice}$</td>
                 <td className="text-center">{myCar.availability}</td>
                 <td className="text-center">{myCar.RentRequest}</td>
                 <td className="text-center">

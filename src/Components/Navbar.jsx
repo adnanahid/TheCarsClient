@@ -81,11 +81,17 @@ const Navbar = () => {
               <NavLink to="/add-car">Add Cars</NavLink>
               <NavLink to="/my-cars">My Cars</NavLink>
               <NavLink to="/my-booking">My Booking</NavLink>
+              <button
+                onClick={handleSignOut}
+                className=""
+              >
+                LogOut
+              </button>
               <div className="dropdown dropdown-end">
                 <button
                   tabIndex={0}
                   role="button"
-                  className="btn btn-ghost btn-circle avatar"
+                  className="btn-circle avatar"
                 >
                   <div className="w-10 rounded-full">
                     <img
@@ -95,19 +101,6 @@ const Navbar = () => {
                     />
                   </div>
                 </button>
-                <ul
-                  tabIndex={0}
-                  className="menu menu-sm bg-[#E51837] dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow"
-                >
-                  <li>
-                    <button
-                      onClick={handleSignOut}
-                      className="justify-between text-left"
-                    >
-                      LogOut
-                    </button>
-                  </li>
-                </ul>
               </div>
             </div>
           ) : (

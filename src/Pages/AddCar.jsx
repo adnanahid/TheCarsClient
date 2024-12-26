@@ -22,6 +22,8 @@ const AddCar = () => {
           dateAdded: date,
           RentRequest: 0,
           availability: "Available",
+          PostedBy: user?.displayName,
+          email: user?.email,
         }
       );
       // Reset the form
@@ -118,18 +120,6 @@ const AddCar = () => {
               className="input input-bordered w-full"
               placeholder="Enter location"
               required
-            />
-          </div>
-
-          {/* User Email */}
-          <div className="form-control">
-            <label className="label font-semibold">Email</label>
-            <input
-              type="email"
-              name="email"
-              defaultValue={user?.email}
-              readOnly
-              className="input input-bordered w-full"
             />
           </div>
 

@@ -56,6 +56,7 @@ const RecentCars = () => {
               <p className="text-sm text-gray-500">
                 Registration No: {car.registrationNumber}
               </p>
+              <p className="font-semibold">Booking Count: {car.RentRequest}</p>
               <p className="text-sm text-green-600 font-semibold">
                 Status: {car.availability}
               </p>

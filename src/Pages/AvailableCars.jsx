@@ -139,7 +139,7 @@ const AvailableCars = () => {
                   {car.carModel}
                 </h2>
                 <p className="text-gray-700 text-sm">
-                  Price: ${car.rentalPrice}
+                  Rent: {car.rentalPrice}$/day
                 </p>
                 <p className="text-gray-700 text-sm">
                   Location: {car.location}
