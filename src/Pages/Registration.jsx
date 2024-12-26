@@ -151,7 +151,7 @@ const Registration = () => {
         </form>
         <button
           onClick={handleGoogleLogin}
-          className="mt-4 w-full flex items-center justify-center gap-2 bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-600 transition-all"
+          className="mt-4 w-full flex items-center justify-center gap-2 bg-blue-500 text-white py-2 rounded-lg shadow-md hover:bg-red-600 transition-all"
         >
           <FaGoogle />
           Login with Google

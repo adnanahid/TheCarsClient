@@ -80,7 +80,8 @@ const MyCars = () => {
       // Send PATCH request to update car info
       const { data } = await axios.patch(
         `${import.meta.env.VITE_DEFAULT_URL}/update-cars/${selectedCar?._id}`,
-        carsInfo
+        carsInfo,
+        { withCredentials: true }
       );
 
       // Display success message
@@ -136,7 +137,7 @@ const MyCars = () => {
             <tr>
               <th className="text-center">Image</th>
               <th className="text-center">Model</th>
-              <th className="text-center">Price/d</th>
+              <th className="text-center">Rent/d</th>
               <th className="text-center">Availability</th>
               <th className="text-center">RentRequest</th>
               <th className="text-center">Date Added</th>
@@ -163,12 +164,12 @@ const MyCars = () => {
                 </td>
                 <td className="text-center">
                   <button onClick={() => handleOpenUpdateModal(myCar)}>
-                    <FaPenFancy />
+                    <FaPenFancy className="text-blue-600"/>
                   </button>
                 </td>
                 <td className="text-center">
                   <button onClick={() => handleDelete(myCar._id)}>
-                    <FaTrashCan />
+                    <FaTrashCan className="text-red-600"/>
                   </button>
                 </td>
               </tr>
@@ -292,15 +293,15 @@ const MyCars = () => {
               {/* Submit Button */}
               <button
                 type="submit"
-                className="btn btn-primary w-full text-white"
+                className="btn bg-blue-600 w-full text-white"
               >
                 Update Information
               </button>
               <button
                 onClick={() => setIsOpen(false)}
-                className="w-full btn bg-green-500"
+                className="w-full btn bg-red-600 text-white"
               >
-                Close
+                Close Modal
               </button>
             </form>
           </div>

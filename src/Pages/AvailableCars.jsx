@@ -173,12 +173,12 @@ const AvailableCars = () => {
           {filteredCars.map((car, index) => (
             <div
               key={index}
-              className="flex items-center border rounded-lg p-4 shadow-sm"
+              className="flex items-center rounded-lg p-4 shadow-lg"
             >
               <img
                 src={car.carImage || "https://via.placeholder.com/150x100"}
                 alt={car.carModel || "Car Image"}
-                className="h-[100px] w-[150px] object-cover mr-4"
+                className="h-[150px] w-[250px] rounded-md object-cover mr-4"
               />
               <div className="flex-1">
                 <h2 className="text-lg font-semibold">{car.carModel}</h2>
@@ -197,7 +197,7 @@ const AvailableCars = () => {
               </div>
               <Link
                 to={`/cars/${car._id}`}
-                className="btn bg-[#E51837] ml-4 hover:bg-blue-600"
+                className="btn bg-[#E51837] text-white ml-4 hover:bg-blue-600"
               >
                 Details
               </Link>

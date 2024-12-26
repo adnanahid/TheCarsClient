@@ -109,13 +109,13 @@ const MyBooking = () => {
           <table className="table">
             <thead>
               <tr>
-                <th className="text-center">Image</th>
-                <th className="text-center">Model</th>
-                <th className="text-center">Total Price</th>
-                <th className="text-center">Date Added</th>
-                <th className="text-center">Status</th>
-                <th className="text-center">Update</th>
-                <th className="text-center">Cancel Booking</th>
+                <th className="text-center text-lg font-bold">Image</th>
+                <th className="text-center text-lg font-bold">Model</th>
+                <th className="text-center text-lg font-bold">Total Price</th>
+                <th className="text-center text-lg font-bold">Date Added</th>
+                <th className="text-center text-lg font-bold">Status</th>
+                <th className="text-center text-lg font-bold">Update</th>
+                <th className="text-center text-lg font-bold">Cancel Booking</th>
               </tr>
             </thead>
             <tbody>
@@ -153,7 +153,10 @@ const MyBooking = () => {
                     {/* Modal for editing booking */}
                     {editBooking && (
                       <div className="modal modal-open">
-                        <form onSubmit={handleUpdate} className="modal-box">
+                        <form
+                          onSubmit={handleUpdate}
+                          className="modal-box max-h-screen overflow-y-auto  pt-16"
+                        >
                           <h3 className="font-bold text-lg">Edit Booking</h3>
                           <p className="py-2">
                             Update details for{" "}
@@ -170,7 +173,7 @@ const MyBooking = () => {
                               dateFormat="yyyy-MM-dd"
                             />
                           </div>
-                          <div className="py-2">
+                          <div className="py-2 mt-6">
                             <label className="block font-medium">
                               End Date
                             </label>
@@ -221,7 +224,7 @@ const MyBooking = () => {
       </div>
       {myBooking.length > 0 && (
         <div className="p-4 bg-white rounded-lg shadow-md my-12">
-          <h2 className="text-lg font-semibold text-gray-700 mb-4">
+          <h2 className="text-2xl font-semibold text-gray-700 mb-4">
             Chart based on car Daily Rental Price
           </h2>
           <BarChart

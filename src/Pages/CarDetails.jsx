@@ -128,7 +128,10 @@ const CarDetails = () => {
             <h2 className="text-xl font-semibold mb-2">Description</h2>
             <p className="text-gray-700">{car.description}</p>
           </div>
-          <button onClick={openModal} className="btn w-full bg-[#E51837]">
+          <button
+            onClick={openModal}
+            className="btn w-full text-white text-xl bg-[#E51837]"
+          >
             Book Now
           </button>
 
@@ -139,7 +142,7 @@ const CarDetails = () => {
               aria-labelledby="modal-title"
               aria-describedby="modal-description"
             >
-              <form onSubmit={handleBooking} className="modal-box">
+              <form onSubmit={handleBooking} className="modal-box text-center">
                 <h3 id="modal-title" className="font-bold text-lg">
                   Booking Confirmation
                 </h3>
@@ -185,7 +188,7 @@ const CarDetails = () => {
                   <button className="btn" onClick={closeModal} type="button">
                     Cancel
                   </button>
-                  <button type="submit" className="btn btn-primary">
+                  <button type="submit" className="btn bg-[#E51837] text-white">
                     Confirm Booking
                   </button>
                 </div>

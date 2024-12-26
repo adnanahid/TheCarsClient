@@ -47,14 +47,14 @@ const LoginPage = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center max-w-[900px] mx-auto">
-      <div className="flex flex-col md:flex-row items-center gap-8 bg-white rounded-xl shadow-lg p-6">
+      <div className="flex flex-col md:flex-row items-center gap-8 bg-white rounded-xl  p-6">
         {/* Animation Section */}
         <div className="w-full md:w-1/2">
           <Lottie animationData={LoginAnimation} loop={true} />
         </div>
 
         {/* Form Section */}
-        <div className="w-full md:w-1/2 max-w-md">
+        <div className="w-full md:w-1/2 max-w-md shadow-lg p-8 rounded-xl">
           <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">
             Welcome Back
           </h2>

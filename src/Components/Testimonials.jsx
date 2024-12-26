@@ -83,7 +83,7 @@ const Testimonials = () => {
                 fullSymbol={<FaStar className="text-yellow-500 text-xl" />}
                 readonly
               />
-              <p className="text-gray-600 text-sm mt-3 w-10/12 mx-auto">
+              <p className="text-gray-600 text-sm mt-3 w-10/12 mx-auto flex-grow">
                 {comment.comment}
               </p>
               <div className="flex flex-col items-center mt-6">
@@ -99,8 +99,8 @@ const Testimonials = () => {
         </swiper-container>
       </div>
 
-      {/* Comment Submission Form */}
-      {/* <div>
+      {/* Comment Submission Form */} 
+      <div>
         <form
           onSubmit={handleComment}
           className="max-w-2xl mx-auto bg-white shadow-lg rounded-lg p-6 mb-8"
@@ -150,7 +150,7 @@ const Testimonials = () => {
             {user ? "Submit" : "Login to Submit"}
           </button>
         </form>
-      </div> */}
+      </div>
     </div>
   );
 };

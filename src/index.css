@@ -2,26 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
-html{
-    overflow-y: scroll;
+html {
+  overflow-y: scroll;
 }
 
-.active{
-    text-decoration: underline;
+.active {
+  color: red;
 }
 
 @keyframes slideIn {
-    from {
-      transform: translateX(-100%);
-      opacity: 0;
-    }
-    to {
-      transform: translateX(0);
-      opacity: 1;
-    }
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
   }
-  
-  .slide-in {
-    animation: slideIn 0.6s ease-out forwards;
+  to {
+    transform: translateX(0);
+    opacity: 1;
   }
-  
+}
+
+.slide-in {
+  animation: slideIn 0.6s ease-out forwards;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap");
+
+.lato-thin {
+  font-family: "Lato", serif;
+  font-style: normal;
+}
+
+.card:hover {
+  position: relative; 
+  top: -10px;
+  transition: 1s;
+}

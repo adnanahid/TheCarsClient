@@ -5,69 +5,42 @@ import {
   FaInstagram,
   FaLinkedinIn,
 } from "react-icons/fa";
+import logo from "../assets/logoTesla.png";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-gray-300 py-10">
-      <div className="container mx-auto px-6 lg:px-16">
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          {/* Logo and Name */}
-          <div className="mb-6 md:mb-0">
-            <div className="flex items-center">
-              <img
-                src="/src/assets/logoTesla.png" // Replace with your logo path
-                alt="Website Logo"
-                className="h-10 w-10 mr-3"
-              />
-              <h1 className="text-2xl font-bold text-white">The Cars</h1>
-            </div>
-          </div>
-
-          {/* Social Media Links */}
-          <div className="flex space-x-6">
-            <a
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-400 hover:text-white transition"
-            >
-              <FaFacebookF className="text-2xl" />
-            </a>
-            <a
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-400 hover:text-white transition"
-            >
-              <FaTwitter className="text-2xl" />
-            </a>
-            <a
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-400 hover:text-white transition"
-            >
-              <FaInstagram className="text-2xl" />
-            </a>
-            <a
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-400 hover:text-white transition"
-            >
-              <FaLinkedinIn className="text-2xl" />
-            </a>
-          </div>
-        </div>
-
-        {/* Copyright Information */}
-        <div className="mt-8 text-center border-t border-gray-700 pt-4">
-          <p className="text-sm">
-            &copy; {new Date().getFullYear()} The Cars. All rights reserved.
+    <div className="bg-neutral">
+      <footer className="footer text-neutral-content p-10 flex justify-around items-center">
+        <aside>
+          <img src={logo} alt="" className="w-12" />
+          <p className="text-lg font-bold">
+            The Cars Ltd.
+            <br />
+            Providing reliable cars since 1992
           </p>
-        </div>
-      </div>
-    </footer>
+        </aside>
+        <nav>
+          <h6 className="footer-title">Social</h6>
+          <div className="grid grid-flow-col gap-4">
+            <a>
+              <FaFacebookF className="w-6 h-6"></FaFacebookF>
+            </a>
+            <a>
+              <FaLinkedinIn className="w-6 h-6"></FaLinkedinIn>
+            </a>
+            <a>
+              <FaInstagram className="w-6 h-6"></FaInstagram>
+            </a>
+            <a>
+              <FaTwitter className="w-6 h-6"></FaTwitter>
+            </a>
+          </div>
+        </nav>
+      </footer>
+      <p className="text-center text-white pb-12">
+        Copyright © 2024 - All right reserved by The Cars Ltd
+      </p>
+    </div>
   );
 };
 

@@ -48,17 +48,18 @@ const SpecialOffers = () => {
         slides-per-view="4"
       >
         {offers.map((offer, index) => (
-          <swiper-slide
-            key={index}
-            className="offer-car flex flex-col rounded-lg shadow-md p-6 text-center transition-transform transform hover:scale-105 hover:shadow-lg pb-24 bg-green-500"
-          >
-            <h3 className="text-xl font-semibold text-gray-800">
-              {offer.title}
-            </h3>
-            <p className="text-gray-600 mt-2 flex-grow">{offer.description}</p>
-            <button className="mt-4 bg-[#E51837] py-2 px-4 rounded-lg hover:bg-[#C41630] transition-colors text-white">
-              {offer.buttonText}
-            </button>
+          <swiper-slide key={index}>
+            <div className="transition-transform transform hover:scale-105 hover:shadow-lg card flex flex-col rounded-lg shadow-md p-6 text-center h-96">
+              <h3 className="text-xl font-semibold text-gray-800 pt-12">
+                {offer.title}
+              </h3>
+              <p className="text-gray-600 mt-2 flex-grow pt-12">
+                {offer.description}
+              </p>
+              <button className="mt-4 bg-[#E51837] py-2 px-4 rounded-lg hover:bg-[#C41630] transition-colors text-white">
+                {offer.buttonText}
+              </button>
+            </div>
           </swiper-slide>
         ))}
       </swiper-container>
