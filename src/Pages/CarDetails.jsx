@@ -4,8 +4,6 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import { AuthContext } from "../Provider/AuthProvider";
 import toast from "react-hot-toast";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 
 const CarDetails = () => {
   const { data } = useLoaderData();
@@ -17,35 +15,24 @@ const CarDetails = () => {
   const [endDate, setEndDate] = useState("");
   const [totalPrice, setTotalPrice] = useState(0);
 
-  // Format today's date for validation
   const today = format(new Date(), "yyyy-MM-dd");
 
   const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
-
-  const handleEscape = (event) => {
-    if (event.key === "Escape") {
-      closeModal();
-    }
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setStartDate("");
+    setEndDate("");
+    setTotalPrice(0);
   };
 
   useEffect(() => {
-    if (isModalOpen) {
-      document.addEventListener("keydown", handleEscape);
-    }
-    return () => {
-      document.removeEventListener("keydown", handleEscape);
-    };
-  }, [isModalOpen]);
-
-  const calculateTotalPrice = () => {
     if (startDate && endDate) {
       const start = new Date(startDate);
       const end = new Date(endDate);
-      const days = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
-      setTotalPrice(days > 0 ? days * car.rentalPrice : 0);
+      const days = Math.max(0, (end - start) / (1000 * 60 * 60 * 24));
+      setTotalPrice(days * car.rentalPrice);
     }
-  };
+  }, [startDate, endDate, car.rentalPrice]);
 
   const handleBooking = async (e) => {
     e.preventDefault();
@@ -69,9 +56,6 @@ const CarDetails = () => {
         ownerEmail: car.email,
         buyerEmail: user.email,
         bookingDate: format(new Date(), "dd-MM-yyyy HH:mm"),
-        description: car.description,
-        features: car.features,
-        registration: car.registration,
         startDate,
         endDate,
         status: "confirmed",
@@ -91,11 +75,10 @@ const CarDetails = () => {
       closeModal();
       navigate("/my-booking");
     } catch (error) {
+      console.error("Error during booking:", error);
       toast.error("Error making the booking. Please try again.");
     }
   };
-
-  useEffect(calculateTotalPrice, [startDate, endDate]);
 
   return (
     <div className="max-w-5xl mx-auto py-10 px-4">
@@ -136,13 +119,14 @@ const CarDetails = () => {
           </button>
 
           {isModalOpen && (
-            <div
-              className={`modal modal-open`}
-              role="dialog"
-              aria-labelledby="modal-title"
-              aria-describedby="modal-description"
-            >
-              <form onSubmit={handleBooking} className="modal-box text-center">
+            <div className="modal modal-open">
+              <form
+                onSubmit={handleBooking}
+                className="modal-box text-center"
+                role="dialog"
+                aria-labelledby="modal-title"
+                aria-describedby="modal-description"
+              >
                 <h3 id="modal-title" className="font-bold text-lg">
                   Booking Confirmation
                 </h3>
@@ -150,32 +134,32 @@ const CarDetails = () => {
                   You are booking <strong>{car.carModel}</strong> for{" "}
                   <strong>${car.rentalPrice}</strong> per day.
                 </p>
-                <div className="py-2 text-center">
+                <div className="py-2">
                   <label
                     htmlFor="start-date"
                     className="block font-medium mb-2"
                   >
                     Start Date
                   </label>
-                  <DatePicker
-                    selected={startDate}
-                    onChange={(date) => setStartDate(date)}
-                    minDate={new Date()} // Prevent selecting past dates
-                    dateFormat="yyyy-MM-dd" // Ensure consistent format
-                    placeholderText="Select start date"
+                  <input
+                    type="date"
+                    id="start-date"
+                    value={startDate}
+                    onChange={(e) => setStartDate(e.target.value)}
+                    min={today}
                     className="input input-bordered w-full"
                   />
                 </div>
-                <div className="py-2 text-center">
+                <div className="py-2">
                   <label htmlFor="end-date" className="block font-medium mb-2">
                     End Date
                   </label>
-                  <DatePicker
-                    selected={endDate}
-                    onChange={(date) => setEndDate(date)}
-                    minDate={startDate || new Date()} // Prevent selecting dates before startDate
-                    dateFormat="yyyy-MM-dd"
-                    placeholderText="Select end date"
+                  <input
+                    type="date"
+                    id="end-date"
+                    value={endDate}
+                    onChange={(e) => setEndDate(e.target.value)}
+                    min={startDate || today}
                     className="input input-bordered w-full"
                   />
                 </div>
@@ -185,7 +169,7 @@ const CarDetails = () => {
                   </p>
                 </div>
                 <div className="modal-action">
-                  <button className="btn" onClick={closeModal} type="button">
+                  <button type="button" className="btn" onClick={closeModal}>
                     Cancel
                   </button>
                   <button type="submit" className="btn bg-[#E51837] text-white">

@@ -5,7 +5,6 @@ import toast from "react-hot-toast";
 import { FaTrashCan } from "react-icons/fa6";
 import { SlCalender } from "react-icons/sl";
 import EmptyAnimation from "../assets/EmptyAnimation.json";
-
 import {
   BarChart,
   Bar,
@@ -17,7 +16,6 @@ import {
 } from "recharts";
 import Swal from "sweetalert2";
 import Lottie from "lottie-react";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 const MyBooking = () => {
@@ -58,9 +56,7 @@ const MyBooking = () => {
 
       if (result.isConfirmed) {
         await axios.put(
-          `${import.meta.env.VITE_DEFAULT_URL}/my-booked-car/${id}?email=${
-            user.email
-          }`,
+          `${import.meta.env.VITE_DEFAULT_URL}/my-booked-car/${id}?email=${user.email}`,
           { status: "cancel" },
           { withCredentials: true }
         );
@@ -82,13 +78,11 @@ const MyBooking = () => {
   };
 
   //! handleUpdate operations
-  const handleUpdate = async (e) => {
+  const handleUpdate = async (e, id) => {
     e.preventDefault();
     try {
       await axios.patch(
-        `${import.meta.env.VITE_DEFAULT_URL}/my-booked-car/${
-          editBooking.carId
-        }`,
+        `${import.meta.env.VITE_DEFAULT_URL}/my-booked-car/${editBooking.carId}`,
         { startDate, endDate },
         { withCredentials: true }
       );
@@ -155,7 +149,7 @@ const MyBooking = () => {
                       <div className="modal modal-open">
                         <form
                           onSubmit={handleUpdate}
-                          className="modal-box max-h-screen overflow-y-auto  pt-16"
+                          className="modal-box max-h-screen overflow-y-auto pt-16"
                         >
                           <h3 className="font-bold text-lg">Edit Booking</h3>
                           <p className="py-2">
@@ -166,22 +160,22 @@ const MyBooking = () => {
                             <label className="block font-medium">
                               Start Date
                             </label>
-                            <DatePicker
-                              selected={startDate}
-                              onChange={(date) => setStartDate(date)}
+                            <input
+                              type="date"
+                              value={startDate?.toISOString().split("T")[0]}
+                              onChange={(e) => setStartDate(new Date(e.target.value))}
                               className="input input-bordered w-full"
-                              dateFormat="yyyy-MM-dd"
                             />
                           </div>
                           <div className="py-2 mt-6">
                             <label className="block font-medium">
                               End Date
                             </label>
-                            <DatePicker
-                              selected={endDate}
-                              onChange={(date) => setEndDate(date)}
+                            <input
+                              type="date"
+                              value={endDate?.toISOString().split("T")[0]}
+                              onChange={(e) => setEndDate(new Date(e.target.value))}
                               className="input input-bordered w-full"
-                              dateFormat="yyyy-MM-dd"
                             />
                           </div>
                           <div className="modal-action">
