@@ -100,7 +100,7 @@ const MyBooking = () => {
   };
 
   return (
-    <div className="max-w-screen-lg mx-auto min-h-screen mt-16 px-4 sm:px-6 lg:px-8">
+    <div className="max-w-screen-lg mx-auto min-h-screen pt-16 md:pt-24 px-4 sm:px-6 lg:px-8">
       <div className="overflow-x-auto">
         <h1 className="text-4xl font-bold text-center mb-12">My Booking</h1>
         {myBooking.length > 0 ? (

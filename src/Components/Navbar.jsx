@@ -15,7 +15,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="w-full shadow-lg md:h-16">
+    <div className="w-full fixed z-10 bg-white shadow-lg md:h-16">
       <div className="max-w-screen-2xl mx-auto flex items-center justify-between px-4 py-2">
         {/* Navbar Start */}
         <div className="flex items-center">

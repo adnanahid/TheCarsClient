@@ -80,9 +80,9 @@ const AvailableCars = () => {
   }
 
   return (
-    <div className="max-w-screen-xl mx-auto px-4 md:px-6 lg:px-8 min-h-screen">
+    <div className="max-w-screen-xl mx-auto px-4 md:px-6 lg:px-8 min-h-screen md:pt-24">
       {/* Title */}
-      <h1 className="text-3xl font-bold text-center my-6">Available Cars</h1>
+      <h1 className="text-3xl font-bold text-center py-6">Available Cars</h1>
 
       {/* Search and Filter Section */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-4 mb-6">
