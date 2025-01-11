@@ -27,21 +27,26 @@ const WhyChooseUs = () => {
   ];
 
   return (
-    <section className="py-16">
+    <section className="py-16 bg-gray-50">
       <div className="container mx-auto px-6 lg:px-16">
+        {/* Section Title */}
         <h2 className="text-3xl lg:text-4xl font-bold text-center text-gray-800 mb-12">
           Why Choose Us?
         </h2>
+        {/* Features Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((feature, index) => (
             <div
               key={index}
-              className="flex flex-col items-center text-center bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300"
+              className="flex flex-col items-center text-center bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300"
             >
+              {/* Icon */}
               <div className="mb-4">{feature.icon}</div>
+              {/* Title */}
               <h3 className="text-xl font-semibold text-gray-800 mb-2">
                 {feature.title}
               </h3>
+              {/* Description */}
               <p className="text-gray-600">{feature.description}</p>
             </div>
           ))}

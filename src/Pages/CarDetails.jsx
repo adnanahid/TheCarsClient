@@ -81,7 +81,7 @@ const CarDetails = () => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto py-10 px-4">
+    <div className="max-w-5xl mx-auto py-10 md:pt-24 px-4">
       {!car ? (
         <p className="text-center text-gray-500">Loading car details...</p>
       ) : (

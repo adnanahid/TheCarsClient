@@ -1,5 +1,9 @@
 import React from "react";
-import "react-awesome-slider/dist/styles.css";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
+
 
 const SpecialOffers = () => {
   const offers = [
@@ -36,33 +40,38 @@ const SpecialOffers = () => {
   ];
 
   return (
-    <section className="py-10 max-w-[700px] mx-auto">
+    <section className="py-10 max-w-screen-xl mx-auto px-4 mt-20">
       <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">
         Special Offers
       </h2>
-      <swiper-container
-        class="mySwiper"
-        pagination="true"
-        pagination-clickable="true"
-        space-between="30"
-        slides-per-view="1"
+      <Swiper
+        modules={[Pagination]}
+        spaceBetween={30}
+        slidesPerView={1}
+        breakpoints={{
+          640: { slidesPerView: 1 },
+          768: { slidesPerView: 2 },
+          1024: { slidesPerView: 3 },
+        }}
+        pagination={{ clickable: true }}
+        className="mySwiper"
       >
         {offers.map((offer, index) => (
-          <swiper-slide key={index}>
-            <div className="transition-transform transform hover:scale-105 hover:shadow-lg card flex flex-col rounded-lg shadow-md p-6 text-center h-96">
-              <h3 className="text-xl font-semibold text-gray-800 pt-12">
+          <SwiperSlide key={index}>
+            <div className="card flex flex-col rounded-lg p-6 bg-white text-center h-72 shadow-xl">
+              <h3 className="text-xl font-semibold text-gray-800 pt-8">
                 {offer.title}
               </h3>
-              <p className="text-gray-600 mt-2 flex-grow pt-12">
+              <p className="text-gray-600 mt-4 flex-grow">
                 {offer.description}
               </p>
-              <button className="mt-4 bg-[#E51837] py-2 px-4 rounded-lg hover:bg-[#C41630] transition-colors text-white">
+              <button className="mt-6 bg-[#E51837] py-2 px-4 rounded-lg hover:bg-[#C41630] transition-colors text-white ">
                 {offer.buttonText}
               </button>
             </div>
-          </swiper-slide>
+          </SwiperSlide>
         ))}
-      </swiper-container>
+      </Swiper>
     </section>
   );
 };

@@ -36,9 +36,9 @@ const AddCar = () => {
   };
 
   return (
-    <div className="min-h-scree py-10 px-6 md:pt-24">
+    <div className="min-h-scree pb-10 px-6 md:pt-24">
       <div className="max-w-3xl mx-auto p-8 rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold mb-6 text-center">Add New Car</h2>
+        <h2 className="text-3xl font-bold mb-6 text-center">Add New Car</h2>
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Car Model */}
           <div className="form-control">

@@ -32,8 +32,3 @@ html {
   font-style: normal;
 }
 
-.card:hover {
-  position: relative; 
-  top: -10px;
-  transition: 1s;
-}

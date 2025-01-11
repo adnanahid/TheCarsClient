@@ -109,8 +109,8 @@ const MyCars = () => {
     );
 
   return (
-    <div className="min-h-screen pt-16">
-      <h1 className="text-4xl font-bold text-center mb-12">My Cars</h1>
+    <div className="min-h-screen pt-24">
+      <h1 className="text-4xl font-bold text-center">My Cars</h1>
       <div className="text-end lg:max-w-screen-lg mx-auto py-4 mb-4">
         <div>
           <label htmlFor="sort" className="mr-2">

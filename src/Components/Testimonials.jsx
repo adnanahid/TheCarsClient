@@ -55,9 +55,9 @@ const Testimonials = () => {
   };
 
   return (
-    <div className="max-w-screen-xl mx-auto flex items-center gap-5 ">
+    <div className="max-w-screen-xl mx-auto md:flex items-center gap-5 md:mt-40">
       {/* Testimonials Slider */}
-      <div className="w-8/12 shadow-lg rounded-xl">
+      <div className="md:w-8/12 shadow-lg rounded-xl">
         <h1 className="text-4xl font-bold mt-8 text-center">
           What our customers are
           <br /> saying about us
@@ -105,7 +105,7 @@ const Testimonials = () => {
         </swiper-container>
       </div>
       {/* Comment Submission Form */}
-      <div className="w-4/12">
+      <div className="md:w-4/12 mt-12">
         <form
           onSubmit={handleComment}
           className="max-w-2xl mx-auto bg-white shadow-lg rounded-lg p-6 mb-8"

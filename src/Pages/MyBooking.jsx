@@ -144,7 +144,7 @@ const MyBooking = () => {
                         setStartDate(new Date(myCar.startDate));
                         setEndDate(new Date(myCar.endDate));
                       }}
-                      className="btn btn-xs bg-blue-400 flex text-white gap-2 items-center text-center hover:bg-blue-600"
+                      className="btn btn-xs bg-blue-400 flex text-white gap-2 items-center text-center hover:bg-blue-600 md:w-32"
                       disabled={myCar.status === "cancel"}
                     >
                       <SlCalender /> <span>Modify Date</span>
@@ -210,7 +210,7 @@ const MyBooking = () => {
                       className={`btn btn-xs ${
                         myCar.status === "cancel"
                           ? "bg-gray-400 text-gray-700 cursor-not-allowed"
-                          : "bg-red-500 hover:bg-red-600 text-white"
+                          : "bg-red-500 hover:bg-red-700 text-white"
                       }`}
                     >
                       <FaTrashCan /> <span>Cancel Booking</span>
