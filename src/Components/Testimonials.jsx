@@ -55,14 +55,13 @@ const Testimonials = () => {
   };
 
   return (
-    <div>
-      <h1 className="text-4xl font-bold mt-8 text-center">
-        What our customers are
-        <br /> saying about us
-      </h1>
-
+    <div className="max-w-screen-xl mx-auto flex items-center gap-5 ">
       {/* Testimonials Slider */}
-      <div className="max-w-[680px] h-[350px] my-12 mx-auto">
+      <div className="w-8/12 shadow-lg rounded-xl">
+        <h1 className="text-4xl font-bold mt-8 text-center">
+          What our customers are
+          <br /> saying about us
+        </h1>
         <swiper-container
           class="mySwiper"
           pagination="true"
@@ -73,9 +72,11 @@ const Testimonials = () => {
           {userComments.map((comment, index) => (
             <swiper-slide
               key={index}
-              className="flex flex-col items-center text-center justify-center h-full bg-white px-6 py-8 "
+              className="flex flex-col items-center text-center justify-center h-full bg-white px-6 py-8 mb-16"
             >
-              <div className="text-center">
+              <div
+                className="text-center pt-8"
+              >
                 <Rating
                   placeholderRating={comment.rating}
                   emptySymbol={
@@ -91,7 +92,7 @@ const Testimonials = () => {
               <p className="text-gray-600 text-sm mt-3 w-10/12 mx-auto flex-grow text-center">
                 {comment.comment}
               </p>
-              <div className="flex flex-col items-center mt-6">
+              <div className="flex flex-col items-center mt-6 mb-8">
                 <img
                   src={comment.photo}
                   alt={`${comment.name}'s avatar`}
@@ -103,9 +104,8 @@ const Testimonials = () => {
           ))}
         </swiper-container>
       </div>
-
       {/* Comment Submission Form */}
-      <div>
+      <div className="w-4/12">
         <form
           onSubmit={handleComment}
           className="max-w-2xl mx-auto bg-white shadow-lg rounded-lg p-6 mb-8"
