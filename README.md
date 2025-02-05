@@ -7,17 +7,13 @@ The Car Rental Platform is an online application designed to make renting vehicl
 #https://assignment-11-dbcf7.web.app
 
 
-## Core Functionality
+## Core Features
 - **User Authentication**: Secure registration and login for users.
 - **Car Listings**: Browse a variety of cars available for rent.
 - **Booking System**: Book cars based on availability and location.
-
-## Advanced Features
 - **Search and Filter**: Find cars by type, price range, or features.
 - **Booking Management**: Users can view, update, or cancel their reservations easily.
 - **Responsive Design**: Optimized for use on desktops, tablets, and mobile devices.
-
-## Security
 - **Authentication with JWT**: Robust token-based authentication ensures secure user sessions.
 - **Password Hashing**: All user passwords are encrypted using bcryptjs.
 
@@ -65,14 +61,14 @@ The Car Rental Platform is an online application designed to make renting vehicl
 - tailwindcss: ^3.4.17 – Utility-first CSS framework.
 - vite: ^6.0.3 – Fast build tool and development server.
 
-#  How to Run ProTracker Locally
+#  How to Run The Cars Locally
 - Step 1: Clone the Repository
      Use Git to clone the repository to your local system:
   
-         git clone https://github.com/your-username/protracker.git
+         git clone https://github.com/your-username/thecars.git
     Then, navigate into the project directory:
   
-          cd protracker
+          cd thecars
 - Step 2: Install Dependencies
   
          npm install
