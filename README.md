@@ -1,7 +1,14 @@
 # The Cars
 
 ## Description
-The Car Rental Platform is an online application designed to make renting vehicles easy and convenient. Users can browse available cars, book rentals, and manage reservations seamlessly, all in one place.
+<div align="center">
+  <img height="200" src="https://i.ibb.co.com/TVgJDBK/Screenshot-2025-01-09-152525.png"  />
+     <p>The Car Rental Platform is an online application designed to make renting vehicles easy and convenient. Users can browse available cars, book rentals, and manage reservations seamlessly, all in one place.</p>
+</div>
+
+
+
+###
 
 ## Live URL
 #https://assignment-11-dbcf7.web.app
