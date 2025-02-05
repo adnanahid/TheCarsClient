@@ -11,7 +11,7 @@
 ###
 
 ## Live URL
-#https://assignment-11-dbcf7.web.app
+https://assignment-11-dbcf7.web.app
 
 
 ## Core Features
