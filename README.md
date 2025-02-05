@@ -1,4 +1,4 @@
-# The Cars
+# The Car Rental Platform
 
 ## Description
 
@@ -91,6 +91,11 @@ https://assignment-11-dbcf7.web.app
   
          npm install
 - Step 3: Set Up Environment Variables
+
+      REACT_APP_FIREBASE_API_KEY=your-api-key
+      REACT_APP_FIREBASE_AUTH_DOMAIN=your-auth-domain
+      REACT_APP_FIREBASE_PROJECT_ID=your-project-id
+       
   
 - Step 4: Run the Development Server:
   
