@@ -1,4 +1,4 @@
-# The Car
+# The Cars
 
 ## Description
 The Car Rental Platform is an online application designed to make renting vehicles easy and convenient. Users can browse available cars, book rentals, and manage reservations seamlessly, all in one place.
@@ -64,4 +64,22 @@ The Car Rental Platform is an online application designed to make renting vehicl
 - postcss: ^8.4.49 – Tool for transforming CSS with JavaScript plugins.
 - tailwindcss: ^3.4.17 – Utility-first CSS framework.
 - vite: ^6.0.3 – Fast build tool and development server.
+
+#  How to Run ProTracker Locally
+- Step 1: Clone the Repository
+     Use Git to clone the repository to your local system:
+  
+         git clone https://github.com/your-username/protracker.git
+    Then, navigate into the project directory:
+  
+          cd protracker
+- Step 2: Install Dependencies
+  
+         npm install
+- Step 3: Set Up Environment Variables
+  
+- Step 4: Run the Development Server:
+  
+         npm run dev
+  
 
