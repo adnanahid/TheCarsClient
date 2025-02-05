@@ -95,5 +95,32 @@ https://assignment-11-dbcf7.web.app
 - Step 4: Run the Development Server:
   
          npm run dev
+
+
+# Configuration
+- Firebase Authentication – Ensure Firebase is properly set up in your .env file.
+- MongoDB Database – Use a remote MongoDB Atlas instance or local setup.
+
+# Contribution Guidelines
+We welcome contributions! Please follow these steps:
+
+## Fork the repository.
+Create a feature branch (git checkout -b feature-new-feature).
+Commit changes (git commit -m "Add new feature").
+Push to GitHub (git push origin feature-new-feature).
+Open a Pull Request (PR) for review.
+
+
+# License
+This project is licensed under the MIT License.
+📄 See the full LICENSE file for more details.
+
+
+# Need Help?
+## For any issues or feature requests, feel free to:
+
+Open an Issue in the repository
+Contact us at nahidhasan3.1416@gmail.com
+Let’s build an amazing game review community together! 🚀
   
 
