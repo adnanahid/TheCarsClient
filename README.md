@@ -24,6 +24,17 @@
 - **Authentication with JWT**: Robust token-based authentication ensures secure user sessions.
 - **Password Hashing**: All user passwords are encrypted using bcryptjs.
 
+
+# Technology Stack
+- React Frontend framework
+- Javascript Strongly typed JavaScript for better maintainability
+- Node.js + Express.js Backend API handling
+- MongoDB for asset and user management
+- Tailwind CSS Modern, utility-first styling
+- Firebase Auth Secure authentication system
+- Vercel Deployment platform for seamless hosting
+
+
 # Dependencies
 - axios: ^1.7.9 – Promise-based HTTP client for making API requests.
 - cookie-parser: ^1.4.7 – Parse cookies in your application.
